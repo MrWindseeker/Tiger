@@ -45,7 +45,7 @@ if __name__ == '__main__':
     assert_util = AssertUtil()
     # assert_util.assert_code('200', '2000')
     # assert_util.assert_in_body('20000', '2000')
-    s = '淘宝网'
+    s = ''
     # str = (s.encode('raw_unicode_escape')).decode()
     # print(str)
 
