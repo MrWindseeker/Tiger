@@ -15,10 +15,19 @@ Tiger_Api:
       ts_eng_list: '/api/admin-api/timesheet/info/eng/eng-list'
       ts_submit: '/api/admin-api/timesheet/info/item/create-timesheet'
     Opportunity:
-      oppor_list: '/api/admin-api/opportunity/oppropportunities/fetchdatapage'
-      oppor_global_list: '/api/admin-api/opportunity/opprglobalsearch/page'
-      oppor_info: '/api/admin-api/opportunity/oppropportunity/get'
+      opp_list: '/api/admin-api/opportunity/oppropportunities/fetchdatapage'
+      opp_global_list: '/api/admin-api/opportunity/opprglobalsearch/page'
+      opp_info: '/api/admin-api/opportunity/oppropportunity/get'
     Engagement:
       eng_list: '/api/admin-api/engagement/financialengagement/page'
       eng_global_list: '/api/admin-api/engagement/financialengagement/globalPage'
-
+    Resource:
+      res_list: '/api/admin-api/resource/mmtplanvirtuals/fetchdefault'
+      mmt_cal: '/api/admin-api/resource/mmtplanvirtuals/plansettingcalculate'
+      mmt_info: '/api/admin-api/resource/mmtexpenseinterfirmbillings/getdraft'
+      mmt_fin_rate: '/api/admin-api/resource/mmtresourcevirtuals/addresourcecalculate'
+      cct_cal: '/api/admin-api/resource/cct-summary/getCctSummaryMaster'
+      cct_info: '/api/admin-api/resource/cct-plan/goEditor'
+      cct_res_list: '/api/admin-api/resource/cct-plan-resource/getResourceDetails'
+    Client:
+      cli_list: '/api/admin-api/client/client/page'

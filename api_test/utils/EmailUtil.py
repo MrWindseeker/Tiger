@@ -184,8 +184,8 @@ if __name__ == '__main__':
     subject = 'email_test'
     text_cont = 'hello everyone'
     html_cont = '''
-    <p>大连森林动物园官网地址：</p>
-    <p><a href = 'https://www.dlzoo.com/'>点击进入</a></p>
+    <p>百度官网地址：</p>
+    <p><a href = 'https://www.baidu.com/'>点击进入</a></p>
     <p>Jinhu's Photo</p>
     <p>------------------------------------------------</p>
     <p><img src = 'cid:image_0'></p>

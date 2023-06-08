@@ -57,16 +57,16 @@ class Tiger_ConfigYaml:
         return self.config['Tiger_Api']['Url']['Timesheet']['ts_submit']
     
     # 商机系统商机列表接口
-    def get_oppor_list(self):
-        return self.config['Tiger_Api']['Url']['Opportunity']['oppor_list']
+    def get_opp_list(self):
+        return self.config['Tiger_Api']['Url']['Opportunity']['opp_list']
 
     # 商机系统全局检索接口
-    def get_oppor_global_list(self):
-        return self.config['Tiger_Api']['Url']['Opportunity']['oppor_global_list']
+    def get_opp_global_list(self):
+        return self.config['Tiger_Api']['Url']['Opportunity']['opp_global_list']
 
     # 商机系统商机详情接口
-    def get_oppor_info(self):
-        return self.config['Tiger_Api']['Url']['Opportunity']['oppor_info']
+    def get_opp_info(self):
+        return self.config['Tiger_Api']['Url']['Opportunity']['opp_info']
     
     # 项目系统项目列表接口
     def get_eng_list(self):
@@ -76,14 +76,47 @@ class Tiger_ConfigYaml:
     def get_eng_global_list(self):
         return self.config['Tiger_Api']['Url']['Engagement']['eng_global_list']
 
+    # 资源系统资源列表接口
+    def get_res_list(self):
+        return self.config['Tiger_Api']['Url']['Resource']['res_list']
+    
+    # 资源系统mmt计算接口
+    def get_mmt_cal(self):
+        return self.config['Tiger_Api']['Url']['Resource']['mmt_cal']
+
+    # 资源系统mmt详情接口
+    def get_mmt_info(self):
+        return self.config['Tiger_Api']['Url']['Resource']['mmt_info']
+    
+    # 资源系统mmt获取财务rate接口
+    def get_mmt_fin_rate(self):
+        return self.config['Tiger_Api']['Url']['Resource']['mmt_fin_rate']
+
+    # 资源系统cct计算接口
+    def get_cct_cal(self):
+        return self.config['Tiger_Api']['Url']['Resource']['cct_cal']
+
+    # 资源系统cct详情接口
+    def get_cct_info(self):
+        return self.config['Tiger_Api']['Url']['Resource']['cct_info']
+
+    # 资源系统cct获取资源列表接口
+    def get_cct_res_list(self):
+        return self.config['Tiger_Api']['Url']['Resource']['cct_res_list']
+    
+    # 客户中心客户查询接口
+    def get_cli_list(self):
+        return self.config['Tiger_Api']['Url']['Client']['cli_list']
+
 
 if __name__ == '__main__':
     conf_test = Tiger_ConfigYaml()
+    print(get_config_path())
     print(conf_test.get_preuat_url())
     print(conf_test.get_admin_login())
-    print(conf_test.get_oppor_list())
-    print(conf_test.get_oppor_global_list())
-    print(conf_test.get_oppor_info())
+    print(conf_test.get_opp_list())
+    print(conf_test.get_opp_global_list())
+    print(conf_test.get_opp_info())
 
 
 
