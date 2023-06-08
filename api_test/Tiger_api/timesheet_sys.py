@@ -35,11 +35,14 @@ class timesheet_sys:
         return res
 
     # 工时详情接口
-    def get_ts_info(self, acs_tk, data):
+    def get_ts_info(self, acs_tk, data = None):
         # timesheetId weekEnd 默认时，为查询当前周
         ts_info_url = preuat_url + ts_info
         headers = {'Authorization':'Bearer {}'.format(acs_tk)}
-        res = req.req_get(ts_info_url, headers = headers, data = json.dumps(data))
+        if not data:
+            res = req.req_get(ts_info_url, headers = headers, data = json.dumps(data))
+        else:
+            res = req.req_get(ts_info_url, headers = headers)
         return res
     
     # 项目查询接口
