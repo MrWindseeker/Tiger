@@ -3,7 +3,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.LogUtil import sys_log
 from config.Conf import ConfigYaml
 from utils.MysqlUtil import MysqlUtil
-from utils.MongoUtil import MongoUtil
 from utils.AssertUtil import AssertUtil
 from utils.EmailUtil import EmailUtil
 from common import Base
@@ -32,17 +31,6 @@ def init_mysql(msdb_env):
     mysql = MysqlUtil(host, user, passwd, database, port, charset)
     # print(mysql)
     return mysql
-
-def init_mongo(mgdb_env):
-    # 读取配置,初始化数据库信息
-    mgdb_info = conf_read.get_db_conf_info(mgdb_env)
-
-    uri = mgdb_info['db_uri']
-    database = mgdb_info['db_pboc']
-    
-    # 初始化mysql对象
-    mongo = MongoUtil(uri, database)
-    return mongo
 
 def assert_db(db_name, result, db_verify):
     # 数据库验证
