@@ -21,18 +21,16 @@ class timesheet_sys:
         self.log = sys_log('timesheet')
 
     # 首页home/info接口
-    def get_ts_home(self, acs_tk):
+    def get_ts_home(self, acs_tk, data):
         ts_home_url = preuat_url + ts_home
         headers = {'Authorization':'Bearer {}'.format(acs_tk)}
-        data = {'fiscalYear':'FY23'}
         res = req.req_get(ts_home_url, headers = headers, data = json.dumps(data))
         return res
     
     # 工时列表接口
-    def get_ts_list(self, acs_tk):
+    def get_ts_list(self, acs_tk, data):
         ts_list_url = preuat_url + ts_list
         headers = {'Authorization':'Bearer {}'.format(acs_tk)}
-        data = {'pageNo':99999, 'page':10}
         res = req.req_get(ts_list_url, headers = headers, data = json.dumps(data))
         return res
 
