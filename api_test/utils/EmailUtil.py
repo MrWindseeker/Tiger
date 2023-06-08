@@ -192,8 +192,8 @@ if __name__ == '__main__':
     <p>------------------------------------------------</p>
     <p><img src = 'cid:image_1'></p>
     '''
-    html_img = ['C:/Users/Windseeker/Desktop/test/QQPhoto20210803172728.jpg', 'C:/Users/Windseeker/Desktop/test/shanghai.png']
-    attach_files = ['C:/Users/Windseeker/Desktop/test/dolanaar.txt','C:/Users/Windseeker/Desktop/test/test.html','C:/Users/Windseeker/Desktop/test/niefeng.png','C:/Users/Windseeker/Desktop/test/WeChat_20230212194705.mp4']
+    html_img = []
+    attach_files = []
     # email = EmailUtil(email_host, sender, auth_code, to_recv, cc_recv, subject, text_cont = text_cont)
     # email = EmailUtil(email_host, sender, auth_code, to_recv, cc_recv, subject, html_cont = html_cont, html_img = html_img)
     email = EmailUtil(email_host, sender, auth_code, to_recv, cc_recv, subject, html_cont = html_cont, attach_file = attach_files, html_img = html_img)

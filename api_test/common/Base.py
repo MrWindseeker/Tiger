@@ -102,7 +102,7 @@ if __name__ == '__main__':
     # headers = params_find(headers)
     # print(headers)
 
-    file_path = 'C:/Users/Windseeker/Desktop/test/QQPhoto20210803172728.jpg'
+    file_path = ''
     # print(path_to_name(file_path))
     print(path_to_filetype(file_path))
 
