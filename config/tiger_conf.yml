@@ -1,0 +1,24 @@
+# Tiger项目API
+
+Tiger_Api: 
+  Test_Env: ''
+  PreUat_Env: 'https://bcp-preuat.ey.com.cn'
+  Uat_Env: ''
+  Url:
+    Login:  '/api/admin-api/system/auth/login'
+    Admin: 
+      datarole: '/api/admin-api/system/datarole/page'
+    Timesheet:
+      ts_home: '/api/admin-api/timesheet/home/info'
+      ts_list: '/api/admin-api/timesheet/info/page'
+      ts_info: '/api/admin-api/timesheet/info/item/get-info'
+      ts_eng_list: '/api/admin-api/timesheet/info/eng/eng-list'
+      ts_submit: '/api/admin-api/timesheet/info/item/create-timesheet'
+    Opportunity:
+      oppor_list: '/api/admin-api/opportunity/oppropportunities/fetchdatapage'
+      oppor_global_list: '/api/admin-api/opportunity/opprglobalsearch/page'
+      oppor_info: '/api/admin-api/opportunity/oppropportunity/get'
+    Engagement:
+      eng_list: '/api/admin-api/engagement/financialengagement/page'
+      eng_global_list: '/api/admin-api/engagement/financialengagement/globalPage'
+

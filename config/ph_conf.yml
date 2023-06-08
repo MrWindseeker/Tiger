@@ -1,0 +1,15 @@
+# 环境信息
+
+API: 
+  Test_Env: 'https://jxph-test.itaiping.com:7100'
+  Prod_Env: ''
+  Url:
+    App_User:
+      ImgToken_Sms: '/gateway/v1/userRegLogin/getImgTokenBySMS'
+      VerifyImg: '/gateway/v1/userSpecial/getVerifyImg'
+      VerifyPhone: '/gateway/v1/userRegLogin/smsLoginBegin'
+      Login_VerifyCode: '/gateway/v1/userRegLogin/loginByVerifyCode'
+      Login_PassWord: '/gateway/v1/userRegLogin/lgpwd'
+    App_MainPage:
+      MainPage_Info: '/gateway/v1/loanMainPage/getMainPageInfo'
+      MainStatus_Info: '/gateway/v1/loanMainPage/getUserMainStatusInfo'
