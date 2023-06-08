@@ -35,9 +35,9 @@ if __name__ == '__main__':
     # json_adm_datarole = {'pageNo':1,'pageSize':10}
     # datarole_result = test_datarole.get_datarole(acs_tk, json_adm_datarole)
 
-    data_ts_home = {'fiscalYear':'FY23'}
+    # data_ts_home = {'fiscalYear':'FY23'}
     # ts_home_result = test_timesheet.get_ts_home(acs_tk, data_ts_home)
-    data_ts_list = {'pageNo':99999, 'page':10}
+    # data_ts_list = {'pageNo':99999, 'page':10}
     # ts_list_result = test_timesheet.get_ts_list(acs_tk, data_ts_list)
     # data_ts_info = {'timesheetId':2209217882, 'weekEnd':'2023-06-02'}
     # ts_info_result = test_timesheet.get_ts_info(acs_tk, data_ts_info)

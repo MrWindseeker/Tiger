@@ -24,7 +24,8 @@ if __name__ =='__main__':
     test = admin_login()
     username = 'admin'
     password = 'admin123'
-    login_test = test.login(username, password)
+    json_login = {'username': username, 'password': password, 'captchaVerification': ''}
+    login_test = test.login(json_login)
     access_token =login_test['body']['data']['accessToken']
 
     print(access_token)
