@@ -12,7 +12,7 @@ cur_path = os.path.abspath(__file__)
 # print(os.path.dirname(cur_path))
 
 BASE_DIR = os.path.dirname(os.path.dirname(cur_path))
-# D:\Python\FST\api_test
+# D:\Python\Tiger\api_test
 # print(BASE_DIR)
 
 # 定义config目录的路径
