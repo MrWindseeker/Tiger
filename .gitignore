@@ -1,0 +1,12 @@
+# .gitignore
+
+# 忽略管理的文件
+*.tmp
+*.pyc
+*.log
+~$*
+
+# 忽略管理的文件夹
+.history/
+api_test/testcase/t_pytest/report/
+api_test/report/
