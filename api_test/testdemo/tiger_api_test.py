@@ -17,7 +17,7 @@ def json_file(file_name):
     return json_data
 
 if __name__ == '__main__':
-    username = 'xi.zhu'
+    username = 'Leanne.Du'
     password = '123456'
     json_login = {'username': username, 'password': password, 'captchaVerification': ''}
 
