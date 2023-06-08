@@ -9,23 +9,10 @@ BASE:
     url: 'https://www.baidu.com'
     case_file: 'test_data.xlsx'
     case_sheet: '接口测试用例_1'
-  lbs_api:
-    api_url: 'http://api.map.baidu.com'
-    api_key: 'PIE709wjGr3xjFst1Fnek5uTE5M2n6In'
-    to_lnglat: '/geocoding/v3/?address={}&output=json&ak={}&callback=showLocation'
-    to_local: '/reverse_geocoding/v3/?ak={}&output=json&coordtype=wgs84ll&location={},{}'
-  ocr_api:
-    api_url: 'https://aip.baidubce.com'
-    api_key: 'Rq4B6IqDXPzfglHAVR7lD2hK'
-    secret_key: 'eZ75iHk8es4d8GQGxKrGpWyUPOw8x3t1'
-    access_token: '/oauth/2.0/token?grant_type=client_credentials&client_id={}&client_secret={}'
-    accurate_basic: '/rest/2.0/ocr/v1/accurate_basic'
-    general_basic: '/rest/2.0/ocr/v1/general_basic'
-    idcard: '/rest/2.0/ocr/v1/idcard'
 
 Email:
   email_host: 'smtp.qq.com'
-  sender: '断浪<mrwindseeker@qq.com>'
-  auth_code: 'xovuafmtwqnkbhae'
-  to_recv: ['聂风<mrwindseeker@me.com>','秦霜<mrwindseeker@163.com>']
-  cc_recv: ['断浪<mrwindseeker@qq.com>']
+  sender: ''
+  auth_code: ''
+  to_recv: []
+  cc_recv: []

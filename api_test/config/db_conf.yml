@@ -16,5 +16,5 @@ msdb2:
   db_charset: 'utf8'
 
 mgdb1:
-  db_uri: 'mongodb://pboc:Taiping8888@10.29.39.31:27017/pboc'
-  db_pboc: 'pboc'
+  db_uri: ''
+  db_pboc: ''
