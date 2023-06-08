@@ -62,54 +62,6 @@ class ConfigYaml:
     def get_excel_sheet(self):
         return self.config['BASE']['test']['case_sheet']
 
-    # 获取需要的信息
-    def get_conf_url(self):
-        return self.config['BASE']['test']['url']
-
-    # 获取lbs_apikey
-    def get_lbs_apikey(self):
-        return self.config['BASE']['lbs_api']['api_key']    
-
-    # 获取lbs_api的url
-    def get_lbs_api(self):
-        return self.config['BASE']['lbs_api']['api_url']
-    
-    # 获取转经纬度接口
-    def get_to_lnglat(self):
-        return self.config['BASE']['lbs_api']['to_lnglat']
-
-    # 获取转地址接口
-    def get_to_local(self):
-        return self.config['BASE']['lbs_api']['to_local']
-
-    # 获取ocr_apikey
-    def get_ocr_apikey(self):
-        return self.config['BASE']['ocr_api']['api_key']
-
-    # 获取ocr_secretkey
-    def get_ocr_secretkey(self):
-        return self.config['BASE']['ocr_api']['secret_key']
-
-    # 获取ocr_api的url
-    def get_ocr_api(self):
-        return self.config['BASE']['ocr_api']['api_url']
-
-    # 获取access_token接口
-    def get_ocr_accesstoken(self):
-        return self.config['BASE']['ocr_api']['access_token']
-
-    # 获取accurate_basic接口
-    def get_ocr_accurate(self):
-        return self.config['BASE']['ocr_api']['accurate_basic']
-
-    # 获取general_basic接口
-    def get_ocr_general(self):
-        return self.config['BASE']['ocr_api']['general_basic']
-
-    # 获取idcard识别接口
-    def get_ocr_idcard(self):
-        return self.config['BASE']['ocr_api']['idcard']
-
     # 获取日志级别
     def get_conf_log_level(self):
         return self.config['BASE']['log_level']
@@ -136,13 +88,6 @@ if __name__ == '__main__':
     # print(type(conf_read.get_db_conf_info('db1')))
     # print(conf_read.get_excel_file())
     # print(conf_read.get_excel_sheet())
-    # print(conf_read.get_lbsapi_url())
-    url = conf_read.get_lbs_api() + '/geocoding/v3/?address={}&output=json&ak={}&callback=showLocation'
-
-    # print(conf_read.get_lbs_apikey())
-    # print(conf_read.get_lbs_api())
-    # print(conf_read.get_to_lnglat())
-    # print(conf_read.get_to_local())
     # print(conf_read.get_excel_sheet())
     email_info = conf_read.get_email_info()
     print(email_info)
