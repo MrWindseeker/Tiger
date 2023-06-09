@@ -1,6 +1,6 @@
 import sys, os, json, random
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from Tiger_api.login_api import admin_login
+# from Tiger_api.login_api import admin_login
 from Tiger_api.admin_sys import admin_sys
 from Tiger_api.timesheet_sys import timesheet_sys
 from Tiger_api.opportunity_sys import opportunity_sys
@@ -21,15 +21,14 @@ if __name__ == '__main__':
     password = '123456'
     json_login = {'username': username, 'password': password, 'captchaVerification': ''}
 
-    test_login = admin_login()
-    test_datarole = admin_sys()
+    test_admin = admin_sys()
     test_timesheet = timesheet_sys()
     test_opportunity = opportunity_sys()
     test_engagement = engagement_sys()
     test_resource = resource_sys()
     test_client = client_sys()
 
-    login_result = test_login.login(json_login)
+    login_result = test_admin.login(json_login)
     acs_tk = login_result['body']['data']['accessToken']
 
     # json_adm_datarole = {'pageNo':1,'pageSize':10}
