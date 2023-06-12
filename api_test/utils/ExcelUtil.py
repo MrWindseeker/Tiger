@@ -51,4 +51,4 @@ if __name__ == '__main__':
     for data in data_list:
         all_data.append(data)
     
-    print(all_data[0]['请求参数'])
+    print(data_list)
