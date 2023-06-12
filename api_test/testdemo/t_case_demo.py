@@ -1,4 +1,4 @@
-import sys, os, json, pytest
+import sys, os, json, pytest, allure
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common import Base, BasicSev, ExcelConf, ExcelData
 from config import Conf
@@ -7,6 +7,9 @@ from utils.AssertUtil import AssertUtil
 from utils.LogUtil import sys_log
 from config.Tiger_Conf import Tiger_ConfigYaml
 
+
+# 初始化配置文件
+conf_info = Conf.ConfigYaml()
 
 # 初始化测试用例
 init_data = ExcelData.run_data()
@@ -25,10 +28,12 @@ preuat_url = Tiger_ConfigYaml().get_preuat_url()
 # 初始化日志
 case_log = sys_log('run_case')
 
+
 class TestCase:
-    # case_log.info(type(data_list))
     @pytest.mark.parametrize('test_case', data_list)
     def test_run(self, test_case):
+        # 用例名称
+        sheet_name = conf_info.get_excel_sheet()
         # 用例编号
         case_id = test_case[data_key.case_id]
         # 系统
@@ -82,8 +87,27 @@ class TestCase:
         # return case_res
 
         # 验证返回码
-        assert_data.assert_code(case_res['code'], case_code)
+        if case_code:
+            assert_data.assert_code(case_res['code'], case_code)
 
+        # 包含验证
+        if case_expect:
+            case_expect = Base.str_to_code(case_expect)
+            print('case_expect：{}'.format(case_expect))
+            assert_data.assert_in_body(case_res['body'], case_expect)
+
+        # 一级标签  feature  sheet名称
+        allure.dynamic.feature(sheet_name)
+        # 二级标签  story  模块
+        allure.dynamic.story(case_module)
+        # 标题  title  用例编号+接口名称
+        allure.dynamic.title(case_id + case_intf)
+        # 描述  description  请求类型+请求url
+        desc = "<font color='red'>请求类型：</font>{}<Br/>" \
+               "<font color='red'>请求url：</font>{}".format(case_method, case_url)
+        # allure.dynamic.description(desc)
+        # 添加html格式需要使用 description_html
+        allure.dynamic.description_html(desc)
                 
 
 if __name__ =='__main__':
