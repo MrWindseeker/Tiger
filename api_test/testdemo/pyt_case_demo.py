@@ -114,7 +114,8 @@ if __name__ =='__main__':
     report_path = Conf.get_report_path() + os.sep + 'result'
     report_html_path = Conf.get_report_path() + os.sep + 'html'
     # pytest.main(['--capture=tee-sys', os.path.abspath(__file__)])
-    pytest.main([os.path.abspath(__file__)])
+    # pytest.main([os.path.abspath(__file__)])
+    pytest.main()
     BasicSev.allure_report(report_path, report_html_path)
     # BasicSev.open_report(report_html_path)
 
