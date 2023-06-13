@@ -71,7 +71,7 @@ class TestCase:
             # 将前置用例场景作为需要执行的前置用例进行递归调用
             pre_case_ids = case_prec.split(',')
             for pre_case_id in pre_case_ids:
-                case_log.info('执行ID为{}的前置用例。'.format(pre_case_id))
+                case_log.info('ID为{}的前置用例为{}。'.format(case_id, pre_case_id))
                 self.pre_case(pre_case_id)
 
         # 执行前置用例场景所需的操作
@@ -83,6 +83,8 @@ class TestCase:
                 pass
         elif str(case_method).upper() == 'GET':
             case_res = req.req_get(preuat_url + case_url, headers=case_headers)
+        
+        # return case_res
 
     @pytest.mark.parametrize('test_case', data_list)
     def test_run(self, test_case):
@@ -125,7 +127,10 @@ class TestCase:
 
         # 验证前置条件
         if case_prec:
-            self.pre_case(case_prec)
+            pre_case_ids = case_prec.split(',')
+            for pre_case_id in pre_case_ids:
+                case_log.info('ID为{}的前置用例为{}。'.format(case_id, pre_case_id))
+                self.pre_case(pre_case_id)
 
         if str(case_method).upper() == 'POST':
             if str(case_params_type).lower() == 'json':

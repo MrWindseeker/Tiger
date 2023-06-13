@@ -63,7 +63,7 @@ if __name__ == '__main__':
     # print(testdata[1][data_key.case_db_verify])
     # print(type(testdata[2][data_key.case_db_verify]))
     alldata = run_data().get_all_data()
-    print(alldata)
+    print(testdata[0]['前置条件'].split(','))
     # print(type(alldata[0]))
     # print(dict(alldata[0]).values())
     # print(alldata[0].values())
