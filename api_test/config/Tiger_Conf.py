@@ -9,7 +9,7 @@ cur_path = os.path.abspath(__file__)
 BASE_DIR = os.path.dirname(os.path.dirname(cur_path))
 # print(BASE_DIR)
 
-# 定义Ph_Config目录的路径
+# 定义Tiger_Config目录的路径
 _config_path = os.path.join(BASE_DIR, 'config')
 
 # 定义tiger_conf.yml文件的路径

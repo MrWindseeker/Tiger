@@ -30,6 +30,60 @@ case_log = sys_log('run_case')
 
 
 class TestCase:
+    def pre_case(self, case_id):
+        # 在data_list中找到指定ID的测试用例
+        test_case = next((case for case in data_list if case[data_key.case_id] == case_id), None)
+
+        # 验证测试用例是否存在
+        if not test_case:
+            case_log.info('ID为{}的前置用例不存在。'.format(case_id))
+            return
+
+        # 检查测试用例是否有前置用例场景
+        case_prec = test_case[data_key.case_prec]
+        if case_prec:
+            case_log.info('执行ID为{}的前置用例。'.format(case_prec))
+            self.pre_case(case_prec)  # 递归调用pre_case执行前置用例场景
+
+        # 执行前置用例
+        sheet_name = conf_info.get_excel_sheet()
+        case_id = test_case[data_key.case_id]
+        case_log.info('执行ID为{}的前置用例。'.format(case_id))
+
+        case_sys = test_case[data_key.case_sys]
+        case_module = test_case[data_key.case_module]
+        case_intf = test_case[data_key.case_intf]
+        case_url = test_case[data_key.case_url]
+        case_prec = test_case[data_key.case_prec]
+        case_method = test_case[data_key.case_method]
+        case_params_type = test_case[data_key.case_params_type]
+        case_params = test_case[data_key.case_params]
+        case_expect = test_case[data_key.case_expect]
+        case_actual = test_case[data_key.case_actual]
+        case_is_run = test_case[data_key.case_is_run]
+        case_headers = test_case[data_key.case_headers]
+        case_cookies = test_case[data_key.case_cookies]
+        case_code = test_case[data_key.case_code]
+        case_db_verify = test_case[data_key.case_db_verify]
+
+        # 检查测试用例是否有前置用例场景
+        if case_prec:
+            # 将前置用例场景作为需要执行的前置用例进行递归调用
+            pre_case_ids = case_prec.split(',')
+            for pre_case_id in pre_case_ids:
+                case_log.info('执行ID为{}的前置用例。'.format(pre_case_id))
+                self.pre_case(pre_case_id)
+
+        # 执行前置用例场景所需的操作
+        if str(case_method).upper() == 'POST':
+            if str(case_params_type).lower() == 'json':
+                case_params = Base.json_parse(case_params)
+                case_res = req.req_post(preuat_url + case_url, json=case_params, headers=case_headers)
+            elif str(case_params_type).lower() == 'data':
+                pass
+        elif str(case_method).upper() == 'GET':
+            case_res = req.req_get(preuat_url + case_url, headers=case_headers)
+
     @pytest.mark.parametrize('test_case', data_list)
     def test_run(self, test_case):
         # 用例名称
@@ -67,13 +121,11 @@ class TestCase:
         # 数据库验证
         case_db_verify = test_case[data_key.case_db_verify]        
 
-        case_log.info('执行测试用例编号：{}。'.format(case_id))
+        case_log.info('执行ID为{}的测试用例。'.format(case_id))
 
         # 验证前置条件
         if case_prec:
-            pass
-        else:
-            case_log.info('无前置测试用例。')
+            self.pre_case(case_prec)
 
         if str(case_method).upper() == 'POST':
             if str(case_params_type).lower() == 'json':
