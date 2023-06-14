@@ -1,20 +1,28 @@
-import sys, os, json, re, subprocess
+import sys, os, json, re, subprocess, shutil, datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.LogUtil import sys_log
-from config.Conf import ConfigYaml
+from config import Conf
 from utils.MysqlUtil import MysqlUtil
 from utils.AssertUtil import AssertUtil
 from utils.EmailUtil import EmailUtil
 from common import Base
 
 # 初始化配置文件
-conf_read = ConfigYaml()
+conf_read = Conf.ConfigYaml()
 # 初始化断言
 assert_util = AssertUtil()
 # 图片格式
 img_type_list = ['.jpg', '.jpeg', '.png', '.bmp']
 # 音频视频格式
 aud_type_list = ['.mp3', '.mp4']
+
+allure_path = Conf.get_allure_path()
+allure_open = Conf.get_allure_open()
+allure_output = Conf.get_output_path()
+
+
+# 当前时间
+cur_time = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
 def init_mysql(msdb_env):
     # 读取配置,初始化数据库信息
@@ -56,6 +64,32 @@ def open_report(report_html_path):
         subprocess.run(open_cmd, shell=True)
     except:
         raise Exception('打开测试报告失败，请核查！')
+    
+def compress_file_and_folder(file_path = allure_open, folder_path = allure_path, output_path = allure_output, output_name = '接口测试报告'):
+    # 构建完整的输出路径
+    output_path = os.path.join(output_path, output_name + '_' + cur_time)
+
+    # 检查输出文件名是否已存在
+    if os.path.exists(output_path + '.zip'):
+        # 如果存在，则添加序号
+        count = 1
+        while os.path.exists(output_path + "_" + str(count)):
+            count += 1
+        output_path = output_path + "_" + str(count)
+    
+    # 创建临时文件夹
+    temp_folder = output_path + "_temp"
+    os.makedirs(temp_folder)    
+    try:
+        # 复制文件到临时文件夹
+        shutil.copy2(file_path, temp_folder)        
+        # 复制文件夹到临时文件夹
+        shutil.copytree(folder_path, os.path.join(temp_folder, os.path.basename(folder_path)))        
+        # 压缩临时文件夹
+        shutil.make_archive(output_path, 'zip', temp_folder)
+    finally:
+        # 删除临时文件夹及其内容
+        shutil.rmtree(temp_folder)
 
 def send_email(subject, text_cont = None, attach_file = None, html_cont = None, html_img = None):
     email_info = conf_read.get_email_info()
@@ -94,18 +128,24 @@ def send_email(subject, text_cont = None, attach_file = None, html_cont = None, 
 
 
 if __name__ == '__main__':
-    subject = 'email_test'
-    text_cont = 'hello everyone'
-    html_cont = '''
-    <p>百度官网地址：</p>
-    <p><a href = 'https://www.baidu.com/'>点击进入</a></p>
-    <p>Jinhu's Photo</p>
-    <p>------------------------------------------------</p>
-    <p><img src = 'cid:image_0'></p>
-    <p>------------------------------------------------</p>
-    <p><img src = 'cid:image_1'></p>
-    '''
-    html_img = []
-    attach_files = []
+    # subject = 'email_test'
+    # text_cont = 'hello everyone'
+    # html_cont = '''
+    # <p>百度官网地址：</p>
+    # <p><a href = 'https://www.baidu.com/'>点击进入</a></p>
+    # <p>Jinhu's Photo</p>
+    # <p>------------------------------------------------</p>
+    # <p><img src = 'cid:image_0'></p>
+    # <p>------------------------------------------------</p>
+    # <p><img src = 'cid:image_1'></p>
+    # '''
+    # html_img = []
+    # attach_files = []
 
-    send_email(subject, html_cont = html_cont, html_img = html_img, attach_file = attach_files)
+    # send_email(subject, html_cont = html_cont, html_img = html_img, attach_file = attach_files)
+
+    # file_path = "./api_test/report/generateAllureReport.bat"
+    # folder_path = "./api_test/report/html"
+    # output_path = "C:/Users/Windseeker/Desktop"
+    # output_name = "compressed_data"
+    compress_file_and_folder()

@@ -28,6 +28,12 @@ _db_config_file = _config_path + os.sep + 'db_conf.yml'
 _log_path = BASE_DIR + os.sep + 'logs'
 # 定义report文件路径
 _report_path = BASE_DIR + os.sep + 'report'
+# 定义allure_report路径
+_allure_path = BASE_DIR + os.sep + 'report/html'
+# 定位open_allure文件路径
+_allure_open = BASE_DIR + os.sep + 'report/generateAllureReport.bat'
+# 定义压缩文件放置路径
+_output_path = BASE_DIR + os.sep + 'report/allurereport'
 
 def get_config_path():
     return _config_path
@@ -46,6 +52,16 @@ def get_log_path():
 
 def get_report_path():
     return _report_path
+
+def get_allure_path():
+    return _allure_path
+
+def get_allure_open():
+    return _allure_open
+
+def get_output_path():
+    return _output_path
+
 
 # 2、读取配置文件
 class ConfigYaml:
