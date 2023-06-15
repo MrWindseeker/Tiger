@@ -7,11 +7,11 @@ cur_time = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
 class ZipUtil:
     def __init__(self):
-        self.log = sys_log('CprsUtil')
+        self.log = sys_log('ZipUtil')
 
     def zip_files(self, output_path, output_name, file_path = None, folder_path = None):
         if not file_path and not folder_path:
-            self.log.error('至少提供一个文件或文件夹路径！')
+            raise Exception('至少提供一个文件或文件夹路径！')
             
         # 构建完整的输出路径
         output_path = os.path.join(output_path, output_name + '_' + cur_time)
