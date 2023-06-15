@@ -10,6 +10,9 @@ class ZipUtil:
         self.log = sys_log('CprsUtil')
 
     def zip_files(self, output_path, output_name, file_path = None, folder_path = None):
+        if not file_path and not folder_path:
+            self.log.error('至少提供一个文件或文件夹路径！')
+            
         # 构建完整的输出路径
         output_path = os.path.join(output_path, output_name + '_' + cur_time)
 
