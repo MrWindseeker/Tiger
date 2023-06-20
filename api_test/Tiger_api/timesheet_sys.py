@@ -1,7 +1,5 @@
-import sys, json
-
-# sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+import sys, os, json
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.LogUtil import sys_log
 from utils.ReqsUtil import ReqsUtil
 from config.Tiger_Conf import Tiger_ConfigYaml

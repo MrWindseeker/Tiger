@@ -165,7 +165,7 @@ class TestCase:
         # allure.dynamic.description(desc)
         # 添加html格式需要使用 description_html
         allure.dynamic.description_html(desc)
-                
+
 
 if __name__ =='__main__':
     report_path = Conf.get_report_path() + os.sep + 'result'

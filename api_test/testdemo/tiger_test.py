@@ -6,7 +6,7 @@ from config.Tiger_Conf import Tiger_ConfigYaml
 
 preuat_url = Tiger_ConfigYaml().get_preuat_url()
 login = Tiger_ConfigYaml().get_admin_login()
-datarole = Tiger_ConfigYaml().get_datarole()
+datarole = Tiger_ConfigYaml().get_admin_datarole()
 
 req = ReqsUtil()
 
