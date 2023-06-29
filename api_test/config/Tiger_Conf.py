@@ -30,11 +30,11 @@ class Tiger_ConfigYaml:
 
     # 后台管理系统登录接口
     def get_admin_login(self):
-        return self.config['Tiger_Api']['Url']['Admin']['Login']
+        return self.config['Tiger_Api']['Url']['AdminApi']['Login']
 
     # 后台管理数据权限接口
     def get_admin_datarole(self):
-        return self.config['Tiger_Api']['Url']['Admin']['datarole']
+        return self.config['Tiger_Api']['Url']['AdminApi']['datarole']
 
     # 工时系统首页接口
     def get_ts_home(self):

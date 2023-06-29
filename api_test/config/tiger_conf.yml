@@ -5,7 +5,7 @@ Tiger_Api:
   PreUat_Env: 'https://bcp-preuat.ey.com.cn'
   Uat_Env: ''
   Url:
-    Admin: 
+    AdminApi: 
       Login:  '/api/admin-api/system/auth/login'
       datarole: '/api/admin-api/system/datarole/page'
     Timesheet:
