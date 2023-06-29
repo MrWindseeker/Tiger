@@ -10,7 +10,7 @@ from Tiger_api.client_sys import client_sys
 
 
 def json_file(file_name):
-    path = 'C:/Users/Windseeker/Desktop'
+    path = 'D:\\Windseeker\\Desktop\\Tiger\\json_data'
     file_path = os.path.join(path,file_name)
     with open(file_path, 'r', encoding='utf8') as f:
         json_data = json.load(f)
