@@ -1,0 +1,21 @@
+Look_Up:
+  Time_Type_input: "//*[text()='Time Type:']/../div[1]/div[1]/div[1]/input"
+  Type_input: "//*[text()='Type:']/../div[1]/div[1]/div[1]/input"
+  Engagement_input: "//*[text()='Engagement:']/../div[1]/div[1]/div[1]/input"
+  Activity_input: "//*[text()='Activity:']/../div[1]/div[1]/div[1]/input"
+  Description_input: "//*[text()='Description:']/../div[1]/div[1]/div[1]/input"
+  Loc1_input: "//*[text()='Loc1:']/../div[1]/div[1]/div[1]/input"
+  Loc2_input: "//*[text()='Loc2:']/../div[1]/div[1]/div[1]/input"
+  Task_Type: "//*[text()='Task Type:']/../div[1]/div[1]/div[1]/input"
+
+login:
+  user_input: "//*[@placeholder="账号"]"
+  pwd_input: "//*[@placeholder="密码"]"
+  loging_btn: "//*[@class='el-button el-button--primary el-button--medium']"
+
+home_page:
+  Current_Week_Timesheet: "//*[text()='Current Week Timesheet']"
+
+timesheet:
+  last_tr_engcode: "//*[@class='box current-timesheet']/div[1]/div/div/form/div/div[3]/table/tbody/tr[last()-0]"
+  add_project: "//*[@class='box current-timesheet']/div[1]/div/div/div/div[2]/span"
