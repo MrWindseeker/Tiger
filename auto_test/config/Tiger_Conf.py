@@ -13,10 +13,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(cur_path))
 _config_path = os.path.join(BASE_DIR, 'config')
 
 # 定义tiger_conf.yml文件的路径
-_ph_conf_file = os.path.join(_config_path, 'tiger_conf.yml')
+_tiger_conf_file = os.path.join(_config_path, 'tiger_conf.yml')
 
 def get_config_path():
-    return _ph_conf_file
+    return _tiger_conf_file
 
 # 2、读取配置文件
 class Tiger_ConfigYaml:

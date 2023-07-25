@@ -13,7 +13,7 @@ conf_info = Conf.ConfigYaml()
 
 # 初始化测试用例
 init_data = ExcelData.run_data()
-data_list = init_data.get_run_data()
+data_list = init_data.get_run_case()
 data_key = ExcelConf.ExcelConf()
 
 # 初始化接口请求
@@ -46,7 +46,7 @@ class TestCase:
             self.pre_case(case_prec)  # 递归调用pre_case执行前置用例场景
 
         # 执行前置用例
-        sheet_name = conf_info.get_excel_sheet()
+        sheet_name = conf_info.get_case_sheet()
         case_id = test_case[data_key.case_id]
         case_log.info('执行ID为{}的前置用例。'.format(case_id))
 
@@ -89,7 +89,7 @@ class TestCase:
     @pytest.mark.parametrize('test_case', data_list)
     def test_run(self, test_case):
         # 用例名称
-        sheet_name = conf_info.get_excel_sheet()
+        sheet_name = conf_info.get_case_sheet()
         # 用例编号
         case_id = test_case[data_key.case_id]
         # 系统

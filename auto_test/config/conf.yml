@@ -6,9 +6,11 @@ BASE:
   # 扩展名
   log_extension: '.log'
   test: 
-    url: 'https://www.baidu.com'
-    case_file: 'test_data.xlsx'
+    # url: 'https://www.baidu.com'
+    test_case:  'test_case.xlsx'
     case_sheet: '接口测试用例_1'
+    test_data:  'test_data.xlsx'
+    data_sheet: '测试用户_1'
 
 Email:
   email_host: 'smtp.qq.com'

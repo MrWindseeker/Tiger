@@ -18,6 +18,12 @@ class ExcelConf:
     case_code = 'req_code'
     case_db_verify = '数据库验证'
 
+    # 测试用户
+    test_sys = '系统'
+    test_username = '用户名'
+    test_password = '密码'
+    test_scene = '场景'
+
 if __name__ == '__main__':
     # print(ExcelConf().case_is_run)
     print(ExcelConf().case_params)

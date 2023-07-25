@@ -71,12 +71,20 @@ class ConfigYaml:
         self.db_config = YamlUtil(get_db_config_file()).data()
 
     # 获取测试用例名称
-    def get_excel_file(self):
-        return self.config['BASE']['test']['case_file']
+    def get_test_case(self):
+        return self.config['BASE']['test']['test_case']
 
     # 获取测试用例sheet
-    def get_excel_sheet(self):
+    def get_case_sheet(self):
         return self.config['BASE']['test']['case_sheet']
+    
+    # 获取测试用户文件
+    def get_test_data(self):
+        return self.config['BASE']['test']['test_data']
+    
+    # 获取测试用户数据
+    def get_data_sheet(self):
+        return self.config['BASE']['test']['data_sheet']
 
     # 获取日志级别
     def get_conf_log_level(self):
@@ -103,13 +111,13 @@ if __name__ == '__main__':
     # print(conf_read.get_db_conf_info('db1'))
     # print(type(conf_read.get_db_conf_info('db1')))
     # print(conf_read.get_excel_file())
-    # print(conf_read.get_excel_sheet())
-    # print(conf_read.get_excel_sheet())
-    email_info = conf_read.get_email_info()
-    print(email_info)
-    to_recv = conf_read.get_email_info()['to_recv']
-    print(to_recv)
-    cc_recv = conf_read.get_email_info()['cc_recv']
-    # print(cc_receiver)
-    if not cc_recv:
-        print('OK')
+    print(conf_read.get_test_data())
+    print(conf_read.get_data_sheet())
+    # email_info = conf_read.get_email_info()
+    # print(email_info)
+    # to_recv = conf_read.get_email_info()['to_recv']
+    # print(to_recv)
+    # cc_recv = conf_read.get_email_info()['cc_recv']
+    # # print(cc_receiver)
+    # if not cc_recv:
+    #     print('OK')

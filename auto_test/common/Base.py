@@ -13,6 +13,11 @@ pat_1 = '\${(.*)}\$'
 # 初始化断言
 assert_util = AssertUtil()
 
+def contains_chinese(str):
+    # 是否包含中文
+    pattern = re.compile(r'[\u4e00-\u9fa5]')
+    return bool(pattern.search(str))
+
 def str_to_code(str):
     # 中文字符串转unicode形式
     return (str.encode('raw_unicode_escape')).decode()
@@ -53,6 +58,14 @@ def path_to_filetype(file_path):
     file = os.path.splitext(file_path)
     file_type = file[1]
     return file_type
+
+def find_dict(dict_list, target_key, target_value):
+    test_dict = []
+    # 字典列表找到value对应数据
+    for dict_data in dict_list:
+        if dict_data[target_key].casefold() == target_value.casefold():
+            test_dict.append(dict_data)
+    return test_dict
 
 # def init_mysql(msdb_env):
 #     # 读取配置,初始化数据库信息

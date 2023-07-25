@@ -10,14 +10,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.ReqsUtil import ReqsUtil
-
 
 base_path = os.path.dirname(os.path.dirname(__file__))  #当前项目基本路径
-project_path = os.path.join(base_path, 'project')   #项目所在目录路径
+project_path = os.path.join(base_path, 'Tiger_ui')   #项目所在目录路径
+print(project_path)
 config_path = os.path.join(base_path, 'config')    #配置所在目录路径
-ui_path = os.path.join(base_path, 'ui_element')    #UI元素信息所在目录路径
+# ui_path = os.path.join(base_path, 'ui_element')    #UI元素信息所在目录路径
 log_path = os.path.join(base_path, 'logs')    #日志文件所在目录路径
 report_path = os.path.join(base_path, 'report')    #报告所在目录路径
 drivers_path = os.path.join(base_path, 'drivers')    #驱动所在目录路径
@@ -65,8 +63,9 @@ def is_chinese(str):
 
 # 获取配置信息
 conf = read_data(config_path+'/configuration.conf')
-ui = read_data(ui_path+'/tim_element.conf')
+ui = read_data(config_path+'/tim_elem.conf')
 
+print(ui.get('Look Up', 'Time_Type_input'))
 
 def get_file(path):
     '''

@@ -1,20 +1,31 @@
-import json
-import os
-import sys
-import time
-import traceback
-from util.common import *
-import pytest
+import json, os, sys, time, traceback, pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from common.common_ui import *
+from common import ExcelData, ExcelConf, Base
+from Tiger_api.admin_sys import admin_sys
+
+test_admin = admin_sys()
+
+# 初始化ExcelConf
+data_key = ExcelConf.ExcelConf()
+
+# 初始化测试用户
+init_data = ExcelData.run_data()
+user_data = init_data.get_all_data()
 
 
 def test_typec(get_log, browser):
+    user_c = Base.find_dict(user_data, data_key.test_scene, 'C')
     try:
         # 先查询该账号是否有项目
-        user = conf.get('user', 'tim_user')
-        pwd = conf.get('user', 'tim_pwd')
-        token = login_token(user, pwd)
+        user = user_c[0][data_key.test_username]
+        pwd = user_c[0][data_key.test_password]
+        json_login = {'username': user, 'password': pwd, 'captchaVerification': ''}
+        login_result = test_admin.login(json_login)
+        acs_token = login_result['body']['data']['accessToken']
+
         project_list = query_project(user, pwd, 'C')
         get_log.info(user+'用户的项目：'+str(project_list['data']))
         # 先判断该用户typec的项目数量
@@ -29,7 +40,7 @@ def test_typec(get_log, browser):
                 engName = bol
         else:
             for pl in project_list['data']:
-                status = chaxun(pl['engCode'], 'C', token)
+                status = chaxun(pl['engCode'], 'C', acs_token)
                 if status == 'O':
                     engName = str(pl['engCode'])+'-'+str(pl['engName'])+' - '+str(pl['clientName'])
                     break
