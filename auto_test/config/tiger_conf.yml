@@ -13,7 +13,9 @@ Tiger_Api:
       ts_list: '/api/admin-api/timesheet/info/page'
       ts_info: '/api/admin-api/timesheet/info/item/get-info'
       ts_eng_list: '/api/admin-api/timesheet/info/eng/eng-list'
-      ts_my_eng:  '/api/admin-api/timesheet/info/eng/my-eng'
+      ts_my_eng: '/api/admin-api/timesheet/info/eng/my-eng'
+      ts_add_eng: '/api/admin-api/timesheet/info/eng/create'
+      ts_eng_status: '/api/admin-api/timesheet/info/eng/get-code-status'
       ts_submit: '/api/admin-api/timesheet/info/item/create-timesheet'
     Opportunity:
       opp_list: '/api/admin-api/opportunity/oppropportunities/fetchdatapage'

@@ -3,10 +3,13 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.common_ui import *
+from Tiger_ui.ui_api import *
 from common import ExcelData, ExcelConf, Base, TimElem
 from Tiger_api.admin_sys import admin_sys
+from Tiger_api.timesheet_sys import timesheet_sys
 
 test_admin = admin_sys()
+test_tim = timesheet_sys()
 
 # 初始化ExcelConf
 data_key = ExcelConf.ExcelConf()
@@ -29,23 +32,27 @@ def test_typec(get_log, browser):
         login_result = test_admin.login(json_login)
         acs_token = login_result['body']['data']['accessToken']
 
-        project_list = query_project(user, pwd, 'C')
-        get_log.info(user+'用户的项目：'+str(project_list['data']))
+        data_eng_type = {"engType": "C"}
+        type_c_list = test_tim.get_my_eng(acs_token, data_eng_type)
+        eng_c_list = type_c_list['body']['data']
+        get_log.info(user+'用户的项目：'+str(eng_c_list))
         # 先判断该用户typec的项目数量
         # 如果没有项目，则通过接口新增一个
         engName = ''
-        if len(project_list['data']) <= 0:
-            bol = add_porject(user, pwd, 'C')
-            if bol == False:
+        if len(eng_c_list) <= 0:
+            # bol = add_porject(user, pwd, 'C')
+            eng_name = add_proj(acs_token, 'C')
+            if not eng_name:
                 get_log.error('该用户C类型项目添加失败')
                 assert False
             else:
-                engName = bol
+                engName = eng_name
         else:
-            for pl in project_list['data']:
-                status = chaxun(pl['engCode'], 'C', acs_token)
-                if status == 'O':
-                    engName = str(pl['engCode'])+'-'+str(pl['engName'])+' - '+str(pl['clientName'])
+            for eng in eng_c_list:
+                data_eng_status = {'engCode': eng['engCode'], 'engType': 'C'}
+                eng_status = test_tim.get_eng_status(acs_token, data_eng_status)
+                if eng_status['body']['data']['status'] == 'O':
+                    engName = eng['engCode'] + '-' + eng['engName'] + ' - ' + eng['clientName']
                     break
         if engName == '':
             get_log.error('项目名未获取到')

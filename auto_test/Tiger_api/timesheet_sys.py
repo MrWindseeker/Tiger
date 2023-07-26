@@ -10,7 +10,9 @@ ts_list = Tiger_ConfigYaml().get_ts_list()
 ts_info = Tiger_ConfigYaml().get_ts_info()
 ts_submit = Tiger_ConfigYaml().get_ts_submit()
 ts_eng_list = Tiger_ConfigYaml().get_ts_eng_list()
-
+ts_my_eng = Tiger_ConfigYaml().get_ts_my_eng()
+ts_add_eng = Tiger_ConfigYaml().get_ts_add_eng()
+ts_eng_status = Tiger_ConfigYaml().get_eng_status()
 
 req = ReqsUtil()
 
@@ -50,17 +52,32 @@ class timesheet_sys:
         res = req.req_post(ts_eng_list_url, headers = headers, json = json)
         return res
 
+    # 我的项目接口
+    def get_my_eng(self, acs_tk, data):
+        ts_my_eng_url = preuat_url + ts_my_eng
+        headers = {'Authorization':'Bearer {}'.format(acs_tk)}
+        res = req.req_get(ts_my_eng_url, headers = headers, data = json.dumps(data))
+        return res
+    
+    # 添加项目接口
+    def add_eng(self, acs_tk, json):
+        ts_add_eng_url = preuat_url + ts_add_eng
+        headers = {'Authorization':'Bearer {}'.format(acs_tk)}
+        res = req.req_post(ts_add_eng_url, headers = headers, json = json)
+        return res
+
+    # 查询项目状态接口
+    def get_eng_status(self, acs_tk, data):
+        eng_code = data['engCode']
+        eng_type = data['engType']
+        ts_eng_status_url = preuat_url + ts_eng_status + '?' + 'engCode={}&engType={}'.format(eng_code, eng_type)
+        headers = {'Authorization':'Bearer {}'.format(acs_tk)}
+        res = req.req_get(ts_eng_status_url, headers = headers, data = json.dumps(data))
+        return res
+    
     # 工时提交接口
     def ts_submit(self, acs_tk, json):
         ts_submit_url = preuat_url + ts_submit
         headers = {'Authorization':'Bearer {}'.format(acs_tk)}
         res = req.req_post(ts_submit_url, headers = headers, json = json)
         return res
-
-
-
-
-
-
-
-

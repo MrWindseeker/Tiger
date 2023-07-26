@@ -58,10 +58,22 @@ class Tiger_ConfigYaml:
     def get_ts_eng_list(self):
         return self.config['Tiger_Api']['Url']['Timesheet']['ts_eng_list']
     
+    # 工时系统我的项目查询接口
+    def get_ts_my_eng(self):
+        return self.config['Tiger_Api']['Url']['Timesheet']['ts_my_eng']
+    
+    # 工时系统添加项目接口
+    def get_ts_add_eng(self):
+        return self.config['Tiger_Api']['Url']['Timesheet']['ts_add_eng']
+
+    # 工时系统项目状态接口
+    def get_eng_status(self):
+        return self.config['Tiger_Api']['Url']['Timesheet']['ts_eng_status']
+    
     # 工时系统工时提交接口
     def get_ts_submit(self):
         return self.config['Tiger_Api']['Url']['Timesheet']['ts_submit']
-    
+        
     # 商机系统商机列表接口
     def get_opp_list(self):
         return self.config['Tiger_Api']['Url']['Opportunity']['opp_list']
