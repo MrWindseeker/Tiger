@@ -62,10 +62,10 @@ def is_chinese(str):
 
 
 # 获取配置信息
-conf = read_data(config_path+'/configuration.conf')
+# conf = read_data(config_path+'/configuration.conf')
 ui = read_data(config_path+'/tim_elem.conf')
 
-print(ui.get('Look Up', 'Time_Type_input'))
+# print(ui.get('Look Up', 'Time_Type_input'))
 
 def get_file(path):
     '''

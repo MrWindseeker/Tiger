@@ -85,13 +85,13 @@ def test_typec(get_log, browser):
         # if project_code != '':
         #     # 添加项目按钮
         #     BasicSev_ui.show_wait(browser, 'xpath', ui.get('timesheet', 'add_project'), 5, 0.5).click()
-        # 点击最后一行的 look up 按钮
+        # 点击最后一行的 Look_Up 按钮
         BasicSev_ui.show_wait(browser, 'xpath',
                   ui.get('timesheet', 'last_tr_engcode')+'/td[2]/div/i',
                   5, 0.5).click()
 
         # 展开Type选择框
-        BasicSev_ui.show_wait(browser, 'xpath', ui.get('Look Up', 'Type_input'), 5, 0.5).click()
+        BasicSev_ui.show_wait(browser, 'xpath', ui.get('Look_Up', 'Type_input'), 5, 0.5).click()
         # 选择Type框内的元素
         BasicSev_ui.show_wait(browser, 'xpath', '/html/body/div[3]/div[1]/div[1]/ul/li[1]', 5, 0.5).click()
 
@@ -99,7 +99,7 @@ def test_typec(get_log, browser):
         # BasicSev_ui.show_wait(browser, 'xpath',
         #           '/html/body/div[1]/div/div/div[2]/div/div/div/div/div[2]/section/div/div[1]/div/div[2]/div[4]/div[2]/div/div[2]/form/div[3]/div/div/div/div/input',
         #           5, 0.5).click()
-        BasicSev_ui.show_wait(browser, 'xpath', ui.get('Look Up', 'Engagement_input'), 5, 0.5).click()
+        BasicSev_ui.show_wait(browser, 'xpath', ui.get('Look_Up', 'Engagement_input'), 5, 0.5).click()
         # 选择Engagement框内的元素
         # '/html/body/div[4]/div[1]/div[1]/ul/li[1]'
         BasicSev_ui.show_wait(browser, 'xpath', f"//*[text()='{engName}']", 5, 0.5).click()
@@ -111,12 +111,12 @@ def test_typec(get_log, browser):
         get_log.info(f'activity：{activity}')
         # loc1选择框
         # BasicSev_ui.show_wait(browser, 'xpath', '/html/body/div[1]/div/div/div[2]/div/div/div/div/div[2]/section/div/div[1]/div/div[2]/div[4]/div[2]/div/div[2]/form/div[6]/div/div/div/div/input', 5, 0.5).click()
-        BasicSev_ui.show_wait(browser, 'xpath', ui.get('Look Up', 'Loc1_input'), 5, 0.5).click()
+        BasicSev_ui.show_wait(browser, 'xpath', ui.get('Look_Up', 'Loc1_input'), 5, 0.5).click()
         # 选择第一个loc1框内的元素
         BasicSev_ui.show_wait(browser, 'xpath', '/html/body/div[5]/div[1]/div[1]/ul/li[1]', 5, 0.5).click()
         # loc2选择框
         # BasicSev_ui.show_wait(browser, 'xpath', '/html/body/div[1]/div/div/div[2]/div/div/div/div/div[2]/section/div/div[1]/div/div[2]/div[4]/div[2]/div/div[2]/form/div[7]/div/div/div/div/input', 5, 0.5).click()
-        BasicSev_ui.show_wait(browser, 'xpath', ui.get('Look Up', 'Loc2_input'), 5, 0.5).click()
+        BasicSev_ui.show_wait(browser, 'xpath', ui.get('Look_Up', 'Loc2_input'), 5, 0.5).click()
         # 选择第一个loc2框内的元素
         BasicSev_ui.show_wait(browser, 'xpath', '/html/body/div[6]/div[1]/div[1]/ul/li[1]', 5, 0.5).click()
         # 提交
@@ -260,7 +260,7 @@ def test_typep(get_log, browser):
             BasicSev_ui.show_wait(browser, 'xpath',
                       '/html/body/div[1]/div/div/div[2]/div/div/div/div/div[2]/section/div/div[1]/div/div[2]/div[4]/div[1]/div/div/div/div[2]/span[1]',
                       5, 0.5).click()
-        # 点击最后一行的 look up 按钮
+        # 点击最后一行的 Look_Up 按钮
         BasicSev_ui.show_wait(browser, 'xpath',
                   '/html/body/div[1]/div/div/div[2]/div/div/div/div/div[2]/section/div/div[1]/div/div[2]/div[4]/div[1]/div/div/form/div/div[3]/table/tbody/tr[last()-0]/td[2]/div/i',
                   5, 0.5).click()
