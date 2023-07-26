@@ -1,5 +1,4 @@
-import os
-import sys
+import os, sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -24,6 +23,8 @@ _data_path = BASE_DIR + os.sep + 'data'
 _config_file = _config_path + os.sep + 'conf.yml'
 # 定义db_conf.yml路径
 _db_config_file = _config_path + os.sep + 'db_conf.yml'
+# 定义excel_conf.conf路径
+_excel_conf_file = _config_path + os.sep + 'excel_conf.conf'
 # 定义log文件路径
 _log_path = BASE_DIR + os.sep + 'logs'
 # 定义report文件路径
@@ -46,6 +47,9 @@ def get_config_file():
 
 def get_db_config_file():
     return _db_config_file
+
+def get_excel_config_file():
+    return _excel_conf_file
 
 def get_log_path():
     return _log_path

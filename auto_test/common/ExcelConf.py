@@ -23,6 +23,7 @@ class ExcelConf:
     test_username = '用户名'
     test_password = '密码'
     test_scene = '场景'
+    
 
 if __name__ == '__main__':
     # print(ExcelConf().case_is_run)

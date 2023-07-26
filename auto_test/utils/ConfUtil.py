@@ -16,10 +16,10 @@ class ConfUtil:
         return self.read_conf()[section][key]
     
 if __name__ == '__main__':
-    conf_path = 'D:\\Python\\Tiger\\auto_test\\config\\excel_conf.conf'
+    conf_path = 'D:\\Python\\Tiger\\auto_test\\config\\tim_elem.conf'
     test_conf = ConfUtil(conf_path)
     # print(test_conf.read_conf().get('test_case', 'case_id'))
     # test_data = test_conf.read_conf()
     # test_data = test_data['test_case']['case_id']
-    test_data = test_conf.get_data('test_case', 'case_id')
+    test_data = test_conf.get_data('Look_Up', 'Time_Type_input')
     print(test_data)

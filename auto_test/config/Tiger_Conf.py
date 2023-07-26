@@ -15,8 +15,14 @@ _config_path = os.path.join(BASE_DIR, 'config')
 # 定义tiger_conf.yml文件的路径
 _tiger_conf_file = os.path.join(_config_path, 'tiger_conf.yml')
 
+# 定义tim_elem.conf路径
+_tim_elem_file = _config_path + os.sep + 'tim_elem.conf'
+
 def get_config_path():
     return _tiger_conf_file
+
+def get_tim_elem_file():
+    return _tim_elem_file
 
 # 2、读取配置文件
 class Tiger_ConfigYaml:

@@ -3,13 +3,16 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common.common_ui import *
-from common import ExcelData, ExcelConf, Base
+from common import ExcelData, ExcelConf, Base, TimElem
 from Tiger_api.admin_sys import admin_sys
 
 test_admin = admin_sys()
 
 # 初始化ExcelConf
 data_key = ExcelConf.ExcelConf()
+
+# 初始化tim_elem
+tim_elem = TimElem.TimElem()
 
 # 初始化测试用户
 init_data = ExcelData.run_data()
