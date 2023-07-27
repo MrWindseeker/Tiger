@@ -14,11 +14,11 @@ class ReqsUtil:
         if method == 'get':
             # 发送get请求
             self.log.info('发送get请求，url：{}'.format(url))
-            r = requests.get(url, data = data, json = json, headers = headers, cookies = cookies)
+            r = requests.get(url, data = data, json = json, headers = headers, cookies = cookies, verify = False)
         elif method == 'post':
             # 发送post请求
             self.log.info('发送post请求，url：{}'.format(url))
-            r = requests.post(url, data = data, json = json, headers = headers, cookies = cookies)
+            r = requests.post(url, data = data, json = json, headers = headers, cookies = cookies, verify = False)
     # 3、获取结果内容
         code = r.status_code
         content = r.content
