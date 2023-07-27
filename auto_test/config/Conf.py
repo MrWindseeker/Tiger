@@ -35,6 +35,12 @@ _allure_path = BASE_DIR + os.sep + 'report/html'
 _allure_open = BASE_DIR + os.sep + 'report/generateAllureReport.bat'
 # 定义压缩文件放置路径
 _output_path = BASE_DIR + os.sep + 'report/allurereport'
+# 定义case文件路径
+_case_path = BASE_DIR + os.sep + 'Tiger_ui'
+
+
+def get_case_path():
+    return _case_path
 
 def get_config_path():
     return _config_path

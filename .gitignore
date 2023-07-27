@@ -8,5 +8,5 @@
 
 # 忽略管理的文件夹
 .history/
-api_test/testcase/t_pytest/report/
-api_test/report/
+auto_test/testcase/t_pytest/report/
+auto_test/report/
