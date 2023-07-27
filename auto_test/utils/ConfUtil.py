@@ -13,7 +13,7 @@ class ConfUtil:
         return conf_data
     
     def get_data(self, section, key):
-        return self.read_conf()[section][key]
+        return self.read_conf().get(section, key)
     
 if __name__ == '__main__':
     conf_path = 'D:\\Python\\Tiger\\auto_test\\config\\tim_elem.conf'
