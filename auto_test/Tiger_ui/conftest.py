@@ -40,13 +40,15 @@ def pytest_collection_modifyitems(items):
         item._nodeid = item.nodeid.encode('utf-8').decode('unicode_escape')
 
 
-@pytest.mark.optionalhook
+# @pytest.mark.optionalhook
+@pytest.hookimpl(optionalhook=True)
 def pytest_html_results_table_header(cells):
     cells.insert(2, html.th('Case_name'))
     cells.pop(-1)  # 删除link列
 
 
-@pytest.mark.optionalhook
+# @pytest.mark.optionalhook
+@pytest.hookimpl(optionalhook=True)
 def pytest_html_results_table_row(report, cells):
     cells.insert(2, html.td(report.description))
     cells.pop(-1)  # 删除link列
@@ -84,7 +86,8 @@ def _capture_screenshot():
     else:
         print("browser autose设置为false，driver获取异常")
 
-@pytest.mark.hookwrapper
+# @pytest.mark.hookwrapper
+@pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item):
     """
     当测试失败的时候，自动截图，展示到html报告中

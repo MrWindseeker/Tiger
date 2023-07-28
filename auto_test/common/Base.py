@@ -1,4 +1,4 @@
-import sys, os, json, re, subprocess
+import sys, os, json, re, subprocess, datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.LogUtil import sys_log
 from config.Conf import ConfigYaml
@@ -12,6 +12,11 @@ pat_1 = '\${(.*)}\$'
 
 # 初始化断言
 assert_util = AssertUtil()
+
+# 生成时间戳并保存在环境变量中
+def generate_timestamp():
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    os.environ["TIMESTAMP"] = timestamp
 
 def contains_chinese(str):
     # 是否包含中文
