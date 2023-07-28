@@ -1,4 +1,0 @@
-INFO     run_case:pyt_case_demo.py:70 执行测试用例编号：test_case_1。
-INFO     run_case:pyt_case_demo.py:76 无前置测试用例。
-INFO     ReqsUtil:ReqsUtil.py:20 发送post请求，url：https://bcp-preuat.ey.com.cn/api/admin-api/system/auth/login
-ERROR    AssertUtil:AssertUtil.py:19 code error, code is 200, expected_code is 201.0

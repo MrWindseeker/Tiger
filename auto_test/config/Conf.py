@@ -27,10 +27,12 @@ _db_config_file = _config_path + os.sep + 'db_conf.yml'
 _excel_conf_file = _config_path + os.sep + 'excel_conf.conf'
 # 定义log文件路径
 _log_path = BASE_DIR + os.sep + 'logs'
-# 定义report文件路径
+# 定义pytest_report文件路径
 _report_path = BASE_DIR + os.sep + 'report'
-# 定义allure_report路径
-_allure_path = BASE_DIR + os.sep + 'report/html'
+# 定义pytest_html路径
+_pytest_path = BASE_DIR + os.sep + 'report' + os.sep + 'pytest_html'
+# 定义allure_html路径
+_allure_path = BASE_DIR + os.sep + 'report/allure_html'
 # 定位open_allure文件路径
 _allure_open = BASE_DIR + os.sep + 'report/generateAllureReport.bat'
 # 定义压缩文件放置路径
@@ -62,6 +64,9 @@ def get_log_path():
 
 def get_report_path():
     return _report_path
+
+def get_pytest_path():
+    return _pytest_path
 
 def get_allure_path():
     return _allure_path

@@ -1,4 +1,0 @@
-INFO     run_case:pyt_case_demo.py:70 执行测试用例编号：test_case_2。
-INFO     run_case:pyt_case_demo.py:76 无前置测试用例。
-INFO     ReqsUtil:ReqsUtil.py:20 发送post请求，url：https://bcp-preuat.ey.com.cn/api/admin-api/system/auth/login
-DEBUG    AssertUtil:AssertUtil.py:38 body检验通过

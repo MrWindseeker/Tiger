@@ -6,7 +6,6 @@ from Tiger_api.admin_sys import admin_sys
 from Tiger_api.timesheet_sys import timesheet_sys
 from utils.ConfUtil import ConfUtil
 from config.Tiger_Conf import *
-from common.common_ui import *
 from Tiger_ui.ui_api import *
 
 
@@ -19,7 +18,7 @@ ui = ConfUtil(conf_path)
 data_key = ExcelConf.ExcelConf()
 
 # 初始化tim_elem
-# tim_elem = TimElem.TimElem()
+tim_elem = TimElem.TimElem()
 
 # 初始化测试用户
 init_data = ExcelData.run_data()
