@@ -3,10 +3,9 @@ import os, sys
 # 添加系统变量，使其CMD窗口命令执行时，能找到相应模块
 # sys.path.append((os.path.abspath(os.path.join(os.path.dirname(__file__), '../'))))
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import pytest
+import pytest, time
 from py.xml import html
 from selenium import webdriver
-import time
 from utils.LogUtil import sys_log
 
 
