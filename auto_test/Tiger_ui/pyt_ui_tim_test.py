@@ -24,45 +24,58 @@ tim_elem = TimElem.TimElem()
 init_data = ExcelData.run_data()
 user_data = init_data.get_all_data()
 
+def seach_engName(user, pwd, eng_type):
+    json_login = {'username': user, 'password': pwd, 'captchaVerification': ''}
+    login_result = test_admin.login(json_login)
+    # 获取登录token
+    acs_token = login_result['body']['data']['accessToken']
+    # 查询用户已添加Type为Chargeable的项目
+    data_eng_type = {"engType": eng_type}
+    eng_list_result = test_tim.get_my_eng(acs_token, data_eng_type)
+    eng_list = eng_list_result['body']['data']
+    # 如果没有项目，则通过接口新增一个
+    # engName 项目名，方便egagement选项的内容选择
+    engName = ''
+    if len(eng_list) <= 0:
+        eng_name = add_proj(acs_token, eng_type)
+        if not eng_name:
+            # get_log.error('该用户C类型项目添加失败')
+            assert False
+        else:
+            engName = eng_name
+    elif len(eng_list) > 0:
+        for eng in eng_list:
+            data_eng_status = {'engCode': eng['engCode'], 'engType': eng_type}
+            eng_status = test_tim.get_eng_status(acs_token, data_eng_status)
+            if eng_status['body']['data']['status'] == 'O' and not eng_status['body']['data']['engActivities']:
+                if eng['clientName'] != '':
+                    engName = str(eng['engCode']) + '-' + str(eng['engName']) + ' - ' + str(eng['clientName'])
+                    break
+                else:
+                    engName = str(eng['engCode']) + '-' + str(eng['engName'])
+                    break
+        if not engName:
+            eng_name = add_proj(acs_token, eng_type)
+            if not eng_name:
+                # get_log.error('该用户C类型项目添加失败')
+                assert False
+            else:
+                engName = eng_name
+    return engName
+
 def test_typec(get_log, browser):
     '''
         项目类型 EngType = C
         Time Type为Regular Time 且 Type为Chargeable
     '''
 
-    user_c = Base.find_dict(user_data, data_key.test_scene, 'C')
     try:
-        # 先查询该账号是否有项目
+        eng_type = 'C'
+        user_c = Base.find_dict(user_data, data_key.test_scene, eng_type)
         user = user_c[0][data_key.test_username]
         pwd = str(int(user_c[0][data_key.test_password]))
-        json_login = {'username': user, 'password': pwd, 'captchaVerification': ''}
-        login_result = test_admin.login(json_login)
-        acs_token = login_result['body']['data']['accessToken']
-        data_eng_type = {"engType": "C"}
-        type_c_list = test_tim.get_my_eng(acs_token, data_eng_type)
-        eng_c_list = type_c_list['body']['data']
-        # 先判断该用户typec的项目数量
-        # 如果没有项目，则通过接口新增一个
-        # engName 项目名，方便egagement选项的内容选择
-        engName = ''
-        if len(eng_c_list) <= 0:
-            eng_name = add_proj(acs_token, 'C')
-            if not eng_name:
-                get_log.error('该用户C类型项目添加失败')
-                assert False
-            else:
-                engName = eng_name
-        else:
-            for eng in eng_c_list:
-                data_eng_status = {'engCode': eng['engCode'], 'engType': 'C'}
-                eng_status = test_tim.get_eng_status(acs_token, data_eng_status)
-                if eng_status['body']['data']['status'] == 'O':
-                    if eng['clientName'] != '':
-                        engName = str(eng['engCode']) + '-' + str(eng['engName']) + ' - ' + str(eng['clientName'])
-                        break
-                    else:
-                        engName = str(eng['engCode']) + '-' + str(eng['engName'])
-                        break
+        engName = seach_engName(user, pwd, eng_type)
+
         if engName == '':
             get_log.error('项目名未获取到')
             assert False
@@ -175,39 +188,14 @@ def test_typep(get_log, browser):
     '''
         项目类型 EngType = P
     '''
-    user_c = Base.find_dict(user_data, data_key.test_scene, 'P')
+
     try:
-        # 先查询该账号是否有项目
-        user = user_c[0][data_key.test_username]
-        pwd = str(int(user_c[0][data_key.test_password]))
-        json_login = {'username': user, 'password': pwd, 'captchaVerification': ''}
-        login_result = test_admin.login(json_login)
-        acs_token = login_result['body']['data']['accessToken']
-        data_eng_type = {"engType": "P"}
-        type_c_list = test_tim.get_my_eng(acs_token, data_eng_type)
-        eng_c_list = type_c_list['body']['data']
-        # 先判断该用户typec的项目数量
-        # 如果没有项目，则通过接口新增一个
-        # engName 项目名，方便egagement选项的内容选择
-        engName = ''
-        if len(eng_c_list) <= 0:
-            eng_name = add_proj(acs_token, 'P')
-            if not eng_name:
-                get_log.error('该用户C类型项目添加失败')
-                assert False
-            else:
-                engName = eng_name
-        else:
-            for eng in eng_c_list:
-                data_eng_status = {'engCode': eng['engCode'], 'engType': 'P'}
-                eng_status = test_tim.get_eng_status(acs_token, data_eng_status)
-                if eng_status['body']['data']['status'] == 'O':
-                    if eng['clientName'] != '':
-                        engName = str(eng['engCode']) + '-' + str(eng['engName']) + ' - ' + str(eng['clientName'])
-                        break
-                    else:
-                        engName = str(eng['engCode']) + '-' + str(eng['engName'])
-                        break
+        eng_type = 'P'
+        user_p = Base.find_dict(user_data, data_key.test_scene, eng_type)
+        user = user_p[0][data_key.test_username]
+        pwd = str(int(user_p[0][data_key.test_password]))
+        engName = seach_engName(user, pwd, eng_type)
+
         if engName == '':
             get_log.error('项目名未获取到')
             assert False
