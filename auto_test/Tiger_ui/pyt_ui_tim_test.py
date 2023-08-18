@@ -2,15 +2,11 @@ import json, os, sys, time, traceback, pytest
 from selenium.webdriver import ActionChains
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common import ExcelData, ExcelConf, Base, TimElem
-from Tiger_api.admin_sys import admin_sys
-from Tiger_api.timesheet_sys import timesheet_sys
 from utils.ConfUtil import ConfUtil
 from config.Tiger_Conf import *
 from Tiger_ui.ui_api import *
 
 
-test_tim = timesheet_sys()
-test_admin = admin_sys()
 conf_path = get_tim_elem_file()
 ui = ConfUtil(conf_path)
 
@@ -23,45 +19,6 @@ tim_elem = TimElem.TimElem()
 # 初始化测试用户
 init_data = ExcelData.run_data()
 user_data = init_data.get_all_data()
-
-def seach_engName(user, pwd, eng_type):
-    json_login = {'username': user, 'password': pwd, 'captchaVerification': ''}
-    login_result = test_admin.login(json_login)
-    # 获取登录token
-    acs_token = login_result['body']['data']['accessToken']
-    # 查询用户已添加Type为Chargeable的项目
-    data_eng_type = {"engType": eng_type}
-    eng_list_result = test_tim.get_my_eng(acs_token, data_eng_type)
-    eng_list = eng_list_result['body']['data']
-    # 如果没有项目，则通过接口新增一个
-    # engName 项目名，方便egagement选项的内容选择
-    engName = ''
-    if len(eng_list) <= 0:
-        eng_name = add_proj(acs_token, eng_type)
-        if not eng_name:
-            # get_log.error('该用户C类型项目添加失败')
-            assert False
-        else:
-            engName = eng_name
-    elif len(eng_list) > 0:
-        for eng in eng_list:
-            data_eng_status = {'engCode': eng['engCode'], 'engType': eng_type}
-            eng_status = test_tim.get_eng_status(acs_token, data_eng_status)
-            if eng_status['body']['data']['status'] == 'O' and not eng_status['body']['data']['engActivities']:
-                if eng['clientName'] != '':
-                    engName = str(eng['engCode']) + '-' + str(eng['engName']) + ' - ' + str(eng['clientName'])
-                    break
-                else:
-                    engName = str(eng['engCode']) + '-' + str(eng['engName'])
-                    break
-        if not engName:
-            eng_name = add_proj(acs_token, eng_type)
-            if not eng_name:
-                # get_log.error('该用户C类型项目添加失败')
-                assert False
-            else:
-                engName = eng_name
-    return engName
 
 def test_typec(get_log, browser):
     '''

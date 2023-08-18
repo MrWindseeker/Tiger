@@ -1,29 +1,28 @@
-import sys, os, json, random, math
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-# from Tiger_api.login_api import admin_login
-from Tiger_api.admin_sys import admin_sys
-from Tiger_api.timesheet_sys import timesheet_sys
+import sys, os, math
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from Tiger_api.admin_sys import admin_sys
+from Tiger_api.timesheet_sys import timesheet_sys
+from utils.LogUtil import sys_log
 
 
 test_tim = timesheet_sys()
+test_admin = admin_sys()
+log = sys_log('ui_api_log')
 
-def add_proj(asc_tk, eng_type):
+def add_check_eng(asc_tk, eng_type):
     json_ts_eng = {'engagementType': '', 'businessUnit': '', 'role': '', 'managerialCntryOrLoc': '', 'engagementCode': None, 'engagementName': None, 'clientCode': None, 'clientName': None, 'employeeName': None, 'employeeGPN': None, 'managementUnit': '', 'subManagementUnit': '', 'pageNo': 1, 'pageSize': 10}
-    # eng_list = test_tim.get_eng_list(asc_tk, json_ts_eng)['body']['data']['list']
-    # 总计项目数
+    # 项目总数
     eng_num = test_tim.get_eng_list(asc_tk, json_ts_eng)['body']['data']['total']
     # 每次查询n条，最大循环次数
-    count = math.ceil(eng_num / 100)
-
+    count = min(3, math.ceil(eng_num / 100))
     for i in range(1, count + 1):
         json_ts_eng = {'engagementType': '', 'businessUnit': '', 'role': '', 'managerialCntryOrLoc': '', 'engagementCode': None, 'engagementName': None, 'clientCode': None, 'clientName': None, 'employeeName': None, 'employeeGPN': None, 'managementUnit': '', 'subManagementUnit': '', 'pageNo': i, 'pageSize': 100}
         eng_list = test_tim.get_eng_list(asc_tk, json_ts_eng)['body']['data']['list']
         if eng_list:
             for eng in eng_list:
-                # print('eng_name:{},eng_code:{},eng_isadd:{},eng_type:{},clientName:{}'.format(eng['engName'], eng['engCode'], eng['isAdd'], eng['engType'], eng['clientName']))
                 if not eng['isAdd'] and eng['engType'] == eng_type:
                     engCode = eng['engCode']
                     data_eng_status = {'engCode': engCode, 'engType': eng['engType']}
@@ -32,11 +31,49 @@ def add_proj(asc_tk, eng_type):
                         engName = str(eng['engCode']) + '-' + str(eng['engName']) + ' - ' + str(eng['clientName'])
                     else:
                         engName = str(eng['engCode']) + '-' + str(eng['engName'])
-                    # print('eng_status:{}'.format(eng_status['body']['data']['status']))
-                    if eng_status['body']['data']['status'] == 'O' and not eng_status['body']['data']['engActivities']:
+                    if eng_status['body']['data']['status'] == 'O' and eng_status['body']['data']['engActivities']:
                         json_add_eng = {'clientCode': eng['clientCode'], 'clientId': eng['clientId'], 'clientName': eng['clientName'], 'cntry': eng['cntry'], 'engCode': eng['engCode'], 'engName': eng['engName'], 'engType': eng['engType'], 'description': eng['description'], 'status': eng['status']}
                         test_tim.add_eng(asc_tk, json_add_eng)
                         return engName
+
+def seach_engName(user, pwd, eng_type):
+    json_login = {'username': user, 'password': pwd, 'captchaVerification': ''}
+    login_result = test_admin.login(json_login)
+    # 获取登录token
+    acs_token = login_result['body']['data']['accessToken']
+    # 查询用户已添加Type为Chargeable的项目
+    data_eng_type = {"engType": eng_type}
+    eng_list_result = test_tim.get_my_eng(acs_token, data_eng_type)
+    eng_list = eng_list_result['body']['data']
+    # 如果没有项目，则通过接口新增一个
+    # engName 项目名，方便egagement选项的内容选择
+    engName = ''
+    if len(eng_list) <= 0:
+        eng_name = add_check_eng(acs_token, eng_type)
+        if not eng_name:
+            log.error('该用户{}类型项目添加失败'.format(eng_type))
+            assert False
+        else:
+            engName = eng_name
+    elif len(eng_list) > 0:
+        for eng in eng_list:
+            data_eng_status = {'engCode': eng['engCode'], 'engType': eng_type}
+            eng_status = test_tim.get_eng_status(acs_token, data_eng_status)
+            if eng_status['body']['data']['status'] == 'O' and eng_status['body']['data']['engActivities']:
+                if eng['clientName'] != '':
+                    engName = str(eng['engCode']) + '-' + str(eng['engName']) + ' - ' + str(eng['clientName'])
+                    break
+                else:
+                    engName = str(eng['engCode']) + '-' + str(eng['engName'])
+                    break
+        if not engName:
+            eng_name = add_check_eng(acs_token, eng_type)
+            if not eng_name:
+                log.error('该用户{}类型项目添加失败'.format(eng_type))
+                assert False
+            else:
+                engName = eng_name
+    return engName
 
 def show_wait(driver, by, value, tim, rate):
     '''

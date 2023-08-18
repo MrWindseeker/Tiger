@@ -51,7 +51,7 @@ if __name__ == '__main__':
     # data_eng_status = {'engCode': '30003139', 'engType': 'C'}
     # ts_eng_status_result = test_timesheet.get_eng_status(acs_tk, data_eng_status)
 
-    eng_name = add_proj(acs_tk, 'C')
+    eng_name = add_check_eng(acs_tk, 'C')
 
     # json_opp_list = {"pageSize": 100, "pageNo": 1}
     # opppor_list_result = test_opportunity.get_opp_list(acs_tk, json_opp_list)
