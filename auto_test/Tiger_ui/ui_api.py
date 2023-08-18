@@ -83,7 +83,8 @@ def show_wait(driver, by, value, tim, rate):
     :param value: 查找元素属性值
     :param tim: 最长查找时间（秒）
     :param rate: 每隔多长时间查找一次元素（秒）默认0.5秒
-    :return: 返回元素    '''
+    :return: 返回元素
+    '''
     wait = WebDriverWait(driver, tim, rate)
     if by == 'xpath':
         return wait.until(EC.visibility_of_element_located((By.XPATH, value)))
