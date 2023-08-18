@@ -13,13 +13,13 @@ test_admin = admin_sys()
 log = sys_log('ui_api_log')
 
 def add_check_eng(asc_tk, eng_type):
-    json_ts_eng = {'engagementType': '', 'businessUnit': '', 'role': '', 'managerialCntryOrLoc': '', 'engagementCode': None, 'engagementName': None, 'clientCode': None, 'clientName': None, 'employeeName': None, 'employeeGPN': None, 'managementUnit': '', 'subManagementUnit': '', 'pageNo': 1, 'pageSize': 10}
+    json_ts_eng = {'engagementType': '{}'.format(eng_type), 'businessUnit': '', 'role': '', 'managerialCntryOrLoc': '', 'engagementCode': None, 'engagementName': None, 'clientCode': None, 'clientName': None, 'employeeName': None, 'employeeGPN': None, 'managementUnit': '', 'subManagementUnit': '', 'pageNo': 1, 'pageSize': 10}
     # 项目总数
     eng_num = test_tim.get_eng_list(asc_tk, json_ts_eng)['body']['data']['total']
-    # 每次查询n条，最大循环次数
+    # 每次查询100条，最大循环次数
     count = min(3, math.ceil(eng_num / 100))
     for i in range(1, count + 1):
-        json_ts_eng = {'engagementType': '', 'businessUnit': '', 'role': '', 'managerialCntryOrLoc': '', 'engagementCode': None, 'engagementName': None, 'clientCode': None, 'clientName': None, 'employeeName': None, 'employeeGPN': None, 'managementUnit': '', 'subManagementUnit': '', 'pageNo': i, 'pageSize': 100}
+        json_ts_eng = {'engagementType': '{}'.format(eng_type), 'businessUnit': '', 'role': '', 'managerialCntryOrLoc': '', 'engagementCode': None, 'engagementName': None, 'clientCode': None, 'clientName': None, 'employeeName': None, 'employeeGPN': None, 'managementUnit': '', 'subManagementUnit': '', 'pageNo': i, 'pageSize': 100}
         eng_list = test_tim.get_eng_list(asc_tk, json_ts_eng)['body']['data']['list']
         if eng_list:
             for eng in eng_list:
