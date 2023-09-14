@@ -18,6 +18,8 @@ compress_util = ZipUtil()
 img_type_list = ['.jpg', '.jpeg', '.png', '.bmp']
 # 音频视频格式
 aud_type_list = ['.mp3', '.mp4']
+# 压缩文件格式
+zip_type_list = ['.zip', '.rar']
 # allure报告相关信息
 allure_path = Conf.get_allure_path()
 allure_open = Conf.get_allure_open()
@@ -95,6 +97,8 @@ def send_email(subject, text_cont = None, attach_file = None, html_cont = None, 
                 email.add_text_attach(file_path)
             elif Base.path_to_filetype(file_path) == '.html':
                 email.add_html_attach(file_path)
+            elif Base.path_to_filetype(file_path) in zip_type_list:
+                email.add_zip_attach(file_path)
             elif Base.path_to_filetype(file_path) in img_type_list:
                 email.add_img_attach(file_path)
             elif Base.path_to_filetype(file_path) in aud_type_list:
@@ -120,6 +124,6 @@ if __name__ == '__main__':
     <p><img src = 'cid:image_1'></p>
     '''
     html_img = ['D:/Windseeker/Desktop/test/QQPhoto20210803172728.jpg', 'D:/Windseeker/Desktop/test/shanghai.png']
-    attach_files = ['D:/Windseeker/Desktop/test/dolanaar.txt','D:/Windseeker/Desktop/test/test.html','D:/Windseeker/Desktop/test/niefeng.png','D:/Windseeker/Desktop/test/WeChat_20230212194705.mp4']
+    attach_files = ['D:/Windseeker/Desktop/test/dolanaar.txt','D:/Windseeker/Desktop/test/test.html','D:/Windseeker/Desktop/test/niefeng.png','D:/Windseeker/Desktop/test/WeChat_20230212194705.mp4','D:/Windseeker/Desktop/test/VScode配置.rar']
 
     send_email(subject, html_cont = html_cont, html_img = html_img, attach_file = attach_files)
