@@ -108,24 +108,18 @@ def send_email(subject, text_cont = None, attach_file = None, html_cont = None, 
 
 
 if __name__ == '__main__':
-    # subject = 'email_test'
-    # text_cont = 'hello everyone'
-    # html_cont = '''
-    # <p>百度官网地址：</p>
-    # <p><a href = 'https://www.baidu.com/'>点击进入</a></p>
-    # <p>Jinhu's Photo</p>
-    # <p>------------------------------------------------</p>
-    # <p><img src = 'cid:image_0'></p>
-    # <p>------------------------------------------------</p>
-    # <p><img src = 'cid:image_1'></p>
-    # '''
-    # html_img = []
-    # attach_files = []
+    subject = 'email_test'
+    text_cont = 'hello everyone'
+    html_cont = '''
+    <p>大连森林动物园官网地址：</p>
+    <p><a href = 'https://www.dlzoo.com/'>点击进入</a></p>
+    <p>Jinhu's Photo</p>
+    <p>------------------------------------------------</p>
+    <p><img src = 'cid:image_0'></p>
+    <p>------------------------------------------------</p>
+    <p><img src = 'cid:image_1'></p>
+    '''
+    html_img = ['D:/Windseeker/Desktop/test/QQPhoto20210803172728.jpg', 'D:/Windseeker/Desktop/test/shanghai.png']
+    attach_files = ['D:/Windseeker/Desktop/test/dolanaar.txt','D:/Windseeker/Desktop/test/test.html','D:/Windseeker/Desktop/test/niefeng.png','D:/Windseeker/Desktop/test/WeChat_20230212194705.mp4']
 
-    # send_email(subject, html_cont = html_cont, html_img = html_img, attach_file = attach_files)
-
-    # file_path = "./api_test/report/generateAllureReport.bat"
-    # folder_path = "./api_test/report/html"
-    # output_path = "C:/Users/Windseeker/Desktop"
-    # output_name = "compressed_data"
-    compress_files()
+    send_email(subject, html_cont = html_cont, html_img = html_img, attach_file = attach_files)

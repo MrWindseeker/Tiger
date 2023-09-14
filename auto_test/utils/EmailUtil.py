@@ -143,6 +143,16 @@ class EmailUtil:
         aud_attach["Content-Disposition"] = 'attachment; filename = {}'.format(aud_name)
         self.message.attach(aud_attach)
 
+    def add_zip_attach(self, zip_attach):
+        # 添加压缩文件附件
+        zip_name = Base.path_to_name(zip_attach)
+        zip_file = open(zip_attach, 'rb')
+        zip_attach = MIMEText(zip_file.read(), 'base64', 'utf-8')
+        zip_file.close()
+        zip_attach['Content-Type'] = 'application/octet-stream'
+        zip_attach['Content-Disposition'] = 'attachment; filename = {}'.format(zip_name)
+        self.message.attach(zip_attach)
+
     @pysnooper.snoop()
     # 增加调试信息
     def send_email(self):

@@ -14,7 +14,7 @@ BASE:
 
 Email:
   email_host: 'smtp.qq.com'
-  sender: ''
-  auth_code: ''
-  to_recv: []
-  cc_recv: []
+  sender: '断浪<mrwindseeker@qq.com>'
+  auth_code: 'xovuafmtwqnkbhae'
+  to_recv: ['聂风<mrwindseeker@me.com>','秦霜<mrwindseeker@163.com>']
+  cc_recv: ['断浪<mrwindseeker@qq.com>']
