@@ -1,1 +1,1 @@
-allure open html/
+allure open allure_html/

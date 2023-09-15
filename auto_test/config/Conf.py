@@ -32,11 +32,11 @@ _report_path = BASE_DIR + os.sep + 'report'
 # 定义pytest_html路径
 _pytest_path = BASE_DIR + os.sep + 'report' + os.sep + 'pytest_html'
 # 定义allure_html路径
-_allure_path = BASE_DIR + os.sep + 'report/allure_html'
+_allure_path = BASE_DIR + os.sep + 'report' + os.sep + 'allure_html'
 # 定位open_allure文件路径
-_allure_open = BASE_DIR + os.sep + 'report/generateAllureReport.bat'
+_allure_open = BASE_DIR + os.sep + 'report' + os.sep + 'generateAllureReport.bat'
 # 定义压缩文件放置路径
-_output_path = BASE_DIR + os.sep + 'report/allurereport'
+_output_path = BASE_DIR + os.sep + 'report' + os.sep + 'allurereport'
 # 定义case文件路径
 _case_path = BASE_DIR + os.sep + 'Tiger_ui'
 

@@ -55,7 +55,10 @@ def params_find(para):
 
 def path_to_name(file_path):
     # 文件路径截取文件名称
-    file_name = file_path.split('/')[-1]
+    if '/' in file_path:
+        file_name = file_path.split('/')[-1]
+    elif '\\' in file_path:
+        file_name = file_path.split('\\')[-1]
     return file_name
 
 def path_to_filetype(file_path):
@@ -71,6 +74,26 @@ def find_dict(dict_list, target_key, target_value):
         if dict_data[target_key].casefold() == target_value.casefold():
             test_dict.append(dict_data)
     return test_dict
+
+def find_latest_file(dir_path):
+    # 获取目录下所有文件
+    files = os.listdir(dir_path)
+    # 初始化最新文件和最新创建时间
+    latest_file = None
+    latest_crt_time = 0
+    # 遍历所有文件
+    for file in files:
+        file_path = os.path.join(dir_path, file)
+        # 检查文件是否是文件
+        if os.path.isfile(file_path):
+            # 获取文件的创建时间
+            crt_time = os.path.getctime(file_path)
+            # 如果该文件的创建时间比最新创建时间要新，更新最新文件和最新创建时间
+            if crt_time > latest_crt_time:
+                latest_file = file_path
+                latest_crt_time = crt_time
+    # 最后latest_file变量将包含目录中创建时间最新的文件的路径
+    return latest_file
 
 # def init_mysql(msdb_env):
 #     # 读取配置,初始化数据库信息

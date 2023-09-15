@@ -7,6 +7,8 @@ from utils.AssertUtil import AssertUtil
 from utils.LogUtil import sys_log
 from config.Tiger_Conf import Tiger_ConfigYaml
 
+# allure测试报告路径
+allure_output = Conf.get_output_path()
 
 # 初始化配置文件
 conf_info = Conf.ConfigYaml()
@@ -169,13 +171,17 @@ class TestCase:
 
 if __name__ =='__main__':
     report_path = Conf.get_report_path() + os.sep + 'result'
-    report_html_path = Conf.get_report_path() + os.sep + 'html'
+    report_html_path = Conf.get_report_path() + os.sep + 'allure_html'
     # pytest.main(['--capture=tee-sys', os.path.abspath(__file__)])
     # pytest.main([os.path.abspath(__file__)])
+    Base.generate_timestamp()
     pytest.main()
     BasicSev.allure_report(report_path, report_html_path)
-    BasicSev.open_report(report_html_path)
-    # BasicSev.compress_file_and_folder()
+    # BasicSev.open_report(report_html_path)
+    BasicSev.compress_files()
+    subject = '接口测试报告'
+    text_cont = '接口测试报告_20230914'
+    BasicSev.send_email(subject, text_cont = text_cont, attach_file = [Base.find_latest_file(allure_output)])
 
 
 

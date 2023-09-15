@@ -124,6 +124,6 @@ if __name__ == '__main__':
     <p><img src = 'cid:image_1'></p>
     '''
     html_img = ['D:/Windseeker/Desktop/test/QQPhoto20210803172728.jpg', 'D:/Windseeker/Desktop/test/shanghai.png']
-    attach_files = ['D:/Windseeker/Desktop/test/dolanaar.txt','D:/Windseeker/Desktop/test/test.html','D:/Windseeker/Desktop/test/niefeng.png','D:/Windseeker/Desktop/test/WeChat_20230212194705.mp4','D:/Windseeker/Desktop/test/VScode配置.rar']
+    attach_files = ['D:/Windseeker/Desktop/test/dolanaar.txt','D:/Windseeker/Desktop/test/test.html','D:/Windseeker/Desktop/test/niefeng.png','D:/Windseeker/Desktop/test/WeChat_20230212194705.mp4',Base.find_latest_file(allure_output)]
 
     send_email(subject, html_cont = html_cont, html_img = html_img, attach_file = attach_files)
