@@ -1,14 +1,14 @@
 import pymysql
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 
 # 创建封装类
 class MysqlUtil:
     # 初始化数据,连接数据库
     # 注意：charset='utf8' 不能写成utf-8
     def __init__(self, host, user, passwd, database, port = 3306, charset = 'utf8' ):
-        self.log = sys_log('mysql_log')
+        self.log = LogUtil.sys_log('mysql_log')
 
         self.conn = pymysql.connect(
             host = host,

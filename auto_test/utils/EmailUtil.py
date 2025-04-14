@@ -12,7 +12,7 @@ from email import encoders
 import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common import Base
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 from config.Conf import ConfigYaml
 
 # 初始化配置文件
@@ -27,7 +27,7 @@ aud_type_list = ['.mp3', '.mp4']
 
 class EmailUtil:
     def __init__(self, email_host, sender, auth_code, to_recv, cc_recv, subject, text_cont = None, attach_file = None, html_cont = None, html_img = None):
-        self.log = sys_log('email_log')
+        self.log = LogUtil.sys_log('email_log')
 
         # 设置邮箱服务器地址
         self.email_host = email_host
