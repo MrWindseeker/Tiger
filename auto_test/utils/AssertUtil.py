@@ -1,13 +1,12 @@
-import sys, os
+import sys, os, json
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.LogUtil import sys_log
-import json
+from utils.LogUtil import LogUtil
 
 # 定义封装类
 class AssertUtil:
     # 初始化数据，设置日志名称
     def __init__(self):
-        self.log = sys_log('AssertUtil')
+        self.log = LogUtil.sys_log('AssertUtil')
 
     # 验证返回状态码
     def assert_code(self, code, expected_code):
@@ -43,14 +42,14 @@ class AssertUtil:
 
 if __name__ == '__main__':
     assert_util = AssertUtil()
-    # assert_util.assert_code('200', '2000')
-    # assert_util.assert_in_body('20000', '2000')
-    s = ''
+    assert_util.assert_code('200', '2000')
+    assert_util.assert_in_body('20000', '2000')
+    # s = ''
     # str = (s.encode('raw_unicode_escape')).decode()
     # print(str)
 
     # s = '\xe4\xbd\xa0\xe5\xa5\xbd'
-    b = s.encode('raw_unicode_escape')
-    s = b.decode()
-    print(b)  # b'\xe4\xbd\xa0\xe5\xa5\xbd'
-    print(s)  # 你好
+    # b = s.encode('raw_unicode_escape')
+    # s = b.decode()
+    # print(b)  # b'\xe4\xbd\xa0\xe5\xa5\xbd'
+    # print(s)  # 你好

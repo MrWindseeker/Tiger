@@ -1,85 +1,105 @@
-# 封装Log工具类
-import logging
-import datetime, os, sys
+import logging, datetime, os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import Conf
 from config.Conf import ConfigYaml
 
-# 定义日志级别的映射
-log_l = {
-    'info': logging.INFO,
-    'debug': logging.DEBUG,
-    'warn': logging.WARNING,
-    'error': logging.ERROR,
-}
 
 # 创建类
 class LogUtil:
-# 定义参数
-    # 输出文件名称，Loggername，日志级别
-    def __init__(self, log_file, log_name, log_level):
-        self.log_file = log_file
-        self.log_name = log_name
-        self.log_level = log_level
+    """日志工具类，用于创建和配置日志记录器"""
+    # 日志名称默认包含当前文件名
+    _File_Name = os.path.basename(__file__).split(".")[0]
 
-# 输出控制台或文件
-        # 设置logger名称
-        self.logger = logging.getLogger(self.log_name)
+    # 日志格式默认
+    # _Default_Format = '%(asctime)s [%(levelname)s] %(message)s'
 
-        # 设置log级别
-        self.logger.setLevel(log_l[self.log_level])
+    _Default_Format = '%(asctime)s [%(levelname)s] %(name)s:%(lineno)d - %(message)s'
 
-        # 判断handler是否存在
-        if not self.logger.handlers:
+    # 定义日志级别的映射
+    _Log_Level_Map = {
+        'info': logging.INFO,
+        'debug': logging.DEBUG,
+        'warn': logging.WARNING,
+        'error': logging.ERROR,
+    }
+
+    def __init__(self, logger):
+        """最小化初始化，仅存储logger实例"""
+        self.logger = logger
+
+    def _create_handler(handler_class, level, formatter, **kwargs):
+        """创建处理器"""
+        handler = handler_class(**kwargs)
+        handler.setLevel(level)
+        handler.setFormatter(formatter)
+
+        return handler
+    
+    def _log_path(log_name = _File_Name):
+        """生成日志文件路径"""
+        config = ConfigYaml()
+        logs_dir = Conf.get_log_path()
+        cur_date = datetime.datetime.now().strftime('%Y-%m-%d')
+        log_extension = config.get_conf_log_extension()
+        log_file = os.path.join(logs_dir, log_name)
+
+        if not os.path.exists(log_file):
+            os.makedirs(log_file)
+        log_path = os.path.join(log_file, log_name + '-' + cur_date + log_extension)
+        
+        return log_path
+
+    @classmethod
+    def _create_logger(cls, log_name, log_level):
+        """核心方法：创建并配置logger实例"""
+        # 获取logger实例
+        logger = logging.getLogger(log_name)
+        logger.setLevel(cls._Log_Level_Map[log_level])
+
+        # 避免重复添加处理器
+        if not logger.handlers:
             # 定义日志格式
-            formatter = logging.Formatter('%(asctime)s %(name)s %(levelname)s %(message)s')
+            formatter = logging.Formatter(cls._Default_Format)
 
-            # 日志打印
-            fh_stream = logging.StreamHandler()
-            fh_stream.setLevel(log_l[self.log_level])
-            fh_stream.setFormatter(formatter)
+            # 创建处理器
+            console_handler = cls._create_handler(
+                logging.StreamHandler,
+                cls._Log_Level_Map[log_level],
+                formatter
+            )
+            file_handler = cls._create_handler(
+                logging.FileHandler,
+                cls._Log_Level_Map[log_level],
+                formatter,
+                filename = cls._log_path(log_name)
+            )
 
-            # 写入文件
-            fh_file = logging.FileHandler(self.log_file)
-            fh_file.setLevel(log_l[self.log_level])
-            fh_file.setFormatter(formatter)
+            # 添加处理器
+            logger.addHandler(console_handler)
+            logger.addHandler(file_handler)
 
-            # 添加handler
-            self.logger.addHandler(fh_stream)
-            self.logger.addHandler(fh_file)
+        return logger
+    
+    @classmethod
+    def sys_log(cls, log_name = _File_Name):
+        """主入口：获取日志工具实例"""
 
+        # 获取配置
+        config = ConfigYaml()
+        log_level = config.get_conf_log_level()
 
-# 1、初始化参数数据
-# 日志文件名称、日志文件级别
-# 日志文件名称 = logs目录 + 当前时间 + 扩展名
-# logs目录
-logs_path = Conf.get_log_path()
-# 当前时间
-cur_time = datetime.datetime.now().strftime('%Y-%m-%d')
-# 扩展名
-log_extension = ConfigYaml().get_conf_log_extension()
-# logfile = os.path.join(logs_path, cur_time + log_extension)
-# print(logfile)
-# 日志名称默认包含当前文件名
-file_name=os.path.basename(__file__).split(".")[0]
-# print(name)
-# 日志文件级别
-loglevel = ConfigYaml().get_conf_log_level()
-# print(loglevel)
+        # 创建logger实例
+        logger = cls._create_logger(log_name, log_level)
+        
+        return cls(logger)
+    
+    def __getattr__(self, name):
+        """委托logger的方法调用"""
+        return getattr(self.logger, name)
 
-def sys_log(log_name = file_name):
-    logspath = os.path.join(logs_path, log_name)
-    # logspath_daily = os.path.join(logspath, log_name + '-' + cur_time)
-    if not os.path.exists(logspath):
-        os.makedirs(logspath)
-    logfile = os.path.join(logspath, log_name + '-' + cur_time + log_extension)
-    return LogUtil(log_file = logfile, log_name = log_name, log_level = loglevel).logger
-
-
+    
 if __name__ == '__main__':
-    # sys_log().debug('this is a debug')
-    log = sys_log()
-    log.info('this is a info')
-    log.debug('this is a debug')
-    log.warning('this is a warning')
-    log.error('this is a error')
+    # 使用示例
+    log_util = LogUtil.sys_log()
+    log_util.info('优化后的日志信息')
+    log_util.debug('调试信息')
