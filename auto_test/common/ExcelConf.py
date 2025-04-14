@@ -1,4 +1,5 @@
 class ExcelConf:
+    """ Excel配置类 """
     # 定义属性：用例编号	模块	接口名称	请求url	前置条件	请求类型	请求参数类型	请求参数	预期结果	实际结果	是否运行	headers	cookies	status_code	数据库验证
     case_id = '用例编号'
     case_sys = '系统'

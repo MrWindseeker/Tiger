@@ -15,23 +15,28 @@ assert_util = AssertUtil()
 
 # 生成时间戳并保存在环境变量中
 def generate_timestamp():
+    """ 生成时间戳 """
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     os.environ["TIMESTAMP"] = timestamp
 
 def contains_chinese(str):
+    """ 判断字符串是否包含中文 """
     # 是否包含中文
     pattern = re.compile(r'[\u4e00-\u9fa5]')
     return bool(pattern.search(str))
 
 def str_to_code(str):
+    """ 字符串转unicode形式 """
     # 中文字符串转unicode形式
     return (str.encode('raw_unicode_escape')).decode()
 
 def json_parse(json_data):
+    """ 解析json数据 """
     # 转义 json
     return json.loads(json_data) if json_data else None
 
 def res_find(data, pat_data = pat_1):
+    """ 正则查询 """
     # 查询，公共方法
     # pattern = re.compile('\${(.*)}\$')
     pattern = re.compile(pat_data)
@@ -39,6 +44,7 @@ def res_find(data, pat_data = pat_1):
     return re_res
 
 def res_sub(data, rep_data, pat_data = pat_1):
+    """ 正则替换 """
     # 替换，公共方法
     pattern = re.compile(pat_data)
     re_res = res_find(data, pat_data)
@@ -48,12 +54,14 @@ def res_sub(data, rep_data, pat_data = pat_1):
     return re_res
 
 def params_find(para):
+    """ 参数替换 """
     # 验证是否包含
     if '${' in para:
         para = res_find(para)
     return para
 
 def path_to_name(file_path):
+    """ 文件路径截取文件名称 """
     # 文件路径截取文件名称
     if '/' in file_path:
         file_name = file_path.split('/')[-1]
@@ -62,12 +70,14 @@ def path_to_name(file_path):
     return file_name
 
 def path_to_filetype(file_path):
+    """ 文件路径截取文件格式 """
     # 文件路径截取文件格式
     file = os.path.splitext(file_path)
     file_type = file[1]
     return file_type
 
 def find_dict(dict_list, target_key, target_value):
+    """ 字典列表查找指定key和value """
     test_dict = []
     # 字典列表找到value对应数据
     for dict_data in dict_list:
@@ -76,6 +86,7 @@ def find_dict(dict_list, target_key, target_value):
     return test_dict
 
 def find_latest_file(dir_path):
+    """ 查找目录下最新创建的文件 """
     # 获取目录下所有文件
     files = os.listdir(dir_path)
     # 初始化最新文件和最新创建时间

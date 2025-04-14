@@ -11,8 +11,10 @@ data_key = ExcelConf.ExcelConf()
 conf_read = ConfigYaml()
 
 class run_data:
+    """ 测试用例数据读取 """
     # def __init__(self, excel_name, sheet_by):
     def __init__(self):
+        """ 初始化"""
         # 测试用例
         test_case = conf_read.get_test_case()
         case_sheet = conf_read.get_case_sheet()
@@ -26,21 +28,25 @@ class run_data:
         self._data_list = self._data_excel.data_list()
 
     # 获取所有测试用例
-    def get_all_case(self):       
+    def get_all_case(self): 
+        """ 获取所有测试用例 """      
         return self._case_list
 
     # 获取所有测试数据
     def get_all_data(self):
+        """ 获取所有测试数据 """
         return self._data_list
 
     # 获取需要执行的测试用例
     def get_run_case(self):
+        """ 获取需要执行的测试用例 """
         case_list = Base.find_dict(self._case_list, data_key.case_is_run, 'Y')
         return case_list
     
 
     # 获取前置测试用例
     def get_pre_case(self, pre, case_id):
+        """ 获取前置测试用例 """
         all_data = self.get_all_case()
         for pre_data in all_data:
             # if pre in dict(pre_data).values() and pre_data[data_key.case_id] != case_id:

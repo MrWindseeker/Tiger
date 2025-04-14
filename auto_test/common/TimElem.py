@@ -1,4 +1,5 @@
 class TimElem:
+    """ 定义了Timesheet页面的元素定位信息 """
     # [Look Up]
     # 输入框元素
     Time_Type_input = "//*[text()='Time Type:']/../div[1]/div[1]/div[1]/input"

@@ -30,6 +30,7 @@ allure_output = Conf.get_output_path()
 cur_time = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
 def init_mysql(msdb_env):
+    """ 初始化mysql对象 """
     # 读取配置,初始化数据库信息
     msdb_info = conf_read.get_db_conf_info(msdb_env)
     # host, user, passwd, database, port = 3306, charset = 'utf8'
@@ -46,6 +47,7 @@ def init_mysql(msdb_env):
     return mysql
 
 def assert_db(db_name, result, db_verify):
+    """ 数据库验证 """
     # 数据库验证
     mysql = init_mysql(db_name)
     res_sql = mysql.fetchone(db_verify)
@@ -56,6 +58,7 @@ def assert_db(db_name, result, db_verify):
         assert_util.assert_body(test_res_line, res_sql_line)
 
 def allure_report(report_path, report_html_path):
+    """ 生产allure报告 """
     # 生产allure报告
     allure_cmd = "allure generate {} -o {} --clean".format(report_path, report_html_path)
     try:
@@ -64,6 +67,7 @@ def allure_report(report_path, report_html_path):
         raise Exception('执行用例失败，请核查！')
 
 def open_report(report_html_path):
+    """ 打开allure报告 """
     open_cmd = "allure open {}".format(report_html_path)
     try:
         subprocess.run(open_cmd, shell=True)
@@ -71,9 +75,11 @@ def open_report(report_html_path):
         raise Exception('打开测试报告失败，请核查！')
     
 def compress_files(output_path = allure_output, output_name = '接口测试报告', file_path = allure_open, folder_path = allure_path):
+    """ 压缩文件或文件夹 """
     compress_util.zip_files(output_path, output_name, file_path = file_path, folder_path =folder_path)
 
 def send_email(subject, text_cont = None, attach_file = None, html_cont = None, html_img = None):
+    """ 发送邮件 """
     email_info = conf_read.get_email_info()
     email_host = email_info['email_host']
     sender = email_info['sender']

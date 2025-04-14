@@ -5,11 +5,14 @@ from utils.LogUtil import LogUtil
 
 
 class ReqsUtil:
+    """ 封装requests请求工具类 """
     def __init__(self):
+        """ 初始化requests请求工具类 """
         self.log = LogUtil.sys_log('ReqsUtil')
 
     # 1、定义公共方法
     def req_api(self, url, method = 'get', data = None, json = None, headers = None, cookies = None, img = None):
+        """ 发送请求"""
     # 2、根据参数method判断get/post请求
         if method == 'get':
             # 发送get请求
@@ -38,6 +41,7 @@ class ReqsUtil:
 
     # 1、重构get方法
     def req_get(self, url, img = None, **kwargs):
+        """ 发送get请求 """
     # 2、定义参数
     # url, json, headers, cookies, method等，可以使用**kwargs
     # 3、调用公共方法
@@ -45,6 +49,7 @@ class ReqsUtil:
 
     # 1、重构post方法
     def req_post(self, url, img = None, **kwargs):
+        """ 发送post请求 """
     # 2、定义参数
     # url, json, headers, cookies, method等，可以使用**kwargs
     # 3、调用公共方法

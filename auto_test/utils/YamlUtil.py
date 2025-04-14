@@ -2,7 +2,9 @@ import os
 import yaml
 
 class YamlUtil:
+    """ YAML文件工具类 """
     def __init__(self, yaml):
+        """ 初始化YAML文件工具类 """
         if os.path.exists(yaml):
             self.yaml = yaml
         else:
@@ -12,6 +14,7 @@ class YamlUtil:
 
     # 读取单个文档
     def data(self):
+        """ 读取单个文档 """
         if not self._data:
             with open(self.yaml, 'rb') as f:
                 self._data = yaml.safe_load(f)
@@ -19,6 +22,7 @@ class YamlUtil:
 
     # 读取多个文档
     def data_all(self):
+        """ 读取多个文档 """
         if not self._data_all:
             with open(self.yaml, 'rb') as f:
                 self._data_all = list(yaml.safe_load_all(f))

@@ -26,6 +26,7 @@ aud_type_list = ['.mp3', '.mp4']
 
 
 class EmailUtil:
+    """邮件发送工具类"""
     def __init__(self, email_host, sender, auth_code, to_recv, cc_recv, subject, text_cont = None, attach_file = None, html_cont = None, html_img = None):
         self.log = LogUtil.sys_log('email_log')
 
@@ -52,58 +53,57 @@ class EmailUtil:
 
     @staticmethod
     def format_addr(s):
-        # 美化收发件人
+        """ 格式化收发件人 """
         email_name, email_addr = parseaddr(s)
         return formataddr((Header(email_name,'utf-8').encode(), email_addr))
 
     def set_send(self, emails):
+        """ 设置发件人 """
         email_name, email_addr = parseaddr(emails)
         return email_addr
 
     def set_recv(self, emails):
+        """ 设置收件人 """
         format_list = []
         for email in emails:
             format_list.append(self.format_addr(email))
         return format_list
 
     def set_email(self):
-        # 设置邮件基本内容
+        """ 设置邮件基本内容 """
         self.message['Subject'] = Header(self.subject, 'utf-8').encode()
         self.message['From'] = self.format_addr(self.sender)
         self.message['To'] = ";".join(self.set_recv(self.to_recv))
         self.message['Cc'] = ";".join(self.set_recv(self.cc_recv))
 
     def add_text_cont(self):
+        """ 添加text正文 """
         self.message = MIMEMultipart()
-        # 添加text正文
         text_cont = MIMEText(self.text_cont, 'plain', 'utf-8')
         self.message.attach(text_cont)
 
     def add_html_cont(self):
+        """ 添加html正文 """
         self.message = MIMEMultipart('related')
-        # 添加html正文
         html_cont = MIMEText(self.html_cont, 'html', 'utf-8')
         self.message.attach(html_cont)
 
-        # print(self.html_cont)
         cid_list = pattern_img.findall(self.html_cont)
         if len(cid_list) > 0:
             if len(cid_list) == len(self.html_img):
                 # 添加html背景图片
                 for cid_img, html_img in zip(cid_list, self.html_img):
-                    # print([cid_img, html_img])
                     # 添加图片
                     html_img = open(html_img, 'rb')
                     back_img = MIMEImage(html_img.read())
                     html_img.close()
-                    # print(cid_img)
                     back_img.add_header('Content-ID', '<{}>'.format(cid_img))
                     self.message.attach(back_img)
             elif len(cid_list) != len(self.html_img):
                 raise Exception('请检查html图片位置信息及所需图片信息.')
 
     def add_text_attach(self, text_path):
-        # 添加text附件
+        """ 添加text附件"""
         text_name = Base.path_to_name(text_path)
         text_file = open(text_path, 'rb')
         text_attach = MIMEText(text_file.read(), 'base64', 'utf-8')
@@ -113,7 +113,7 @@ class EmailUtil:
         self.message.attach(text_attach)
 
     def add_html_attach(self, html_path):
-        # 添加html附件
+        """ 添加html附件 """
         html_name = Base.path_to_name(html_path)
         html_file = open(html_path, 'rb')
         html_attach = MIMEApplication(html_file.read())
@@ -124,7 +124,7 @@ class EmailUtil:
         self.message.attach(html_attach)
 
     def add_img_attach(self, img_path):
-        # 添加图片附件
+        """ 添加图片附件 """
         img_name = Base.path_to_name(img_path)
         img_file = open(img_path, 'rb')
         img_attach = MIMEImage(img_file.read())
@@ -134,7 +134,7 @@ class EmailUtil:
         self.message.attach(img_attach)
 
     def add_aud_attach(self, aud_path):
-        # 添加音频视频附件
+        """ 添加音频附件 """
         aud_name = Base.path_to_name(aud_path)
         aud_file = open(aud_path, 'rb')
         aud_attach = MIMEAudio(aud_file.read(), 'audio')
@@ -144,7 +144,7 @@ class EmailUtil:
         self.message.attach(aud_attach)
 
     def add_zip_attach(self, zip_path):
-        # 添加压缩文件附件
+        """ 添加压缩文件附件 """
         zip_name = Base.path_to_name(zip_path)
         zip_file = open(zip_path, 'rb')
         zip_attach = MIMEText(zip_file.read(), 'base64', 'utf-8')
@@ -153,9 +153,10 @@ class EmailUtil:
         zip_attach.add_header('content-disposition', 'attachment', filename = zip_name)
         self.message.attach(zip_attach)
 
-    @pysnooper.snoop()
     # 增加调试信息
+    @pysnooper.snoop()
     def send_email(self):
+        """ 发送邮件 """
         try:
             # 连接邮件服务器 SMTP_PORT = 25
             server = smtplib.SMTP(self.email_host, smtplib.SMTP_PORT)
@@ -166,7 +167,7 @@ class EmailUtil:
             server.login(self.set_send(self.sender), self.auth_code)
             self.log.info('成功登录邮箱')
             self.log.info('发件人：[{}]'.format(self.sender))
-            # 发送邮件
+
             if not self.cc_recv:
                 server.sendmail(self.sender, self.to_recv, self.message.as_string())
                 self.log.info('收件人：{}'.format(self.to_recv))

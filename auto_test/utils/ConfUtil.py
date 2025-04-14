@@ -1,6 +1,8 @@
 import os, configparser
 
+
 class ConfUtil:
+    """ 配置文件工具类 """
     def __init__(self, conf):
         if os.path.exists(conf):
             self.conf = conf

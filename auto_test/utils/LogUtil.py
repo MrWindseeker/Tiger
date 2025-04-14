@@ -6,13 +6,11 @@ from config.Conf import ConfigYaml
 
 # 创建类
 class LogUtil:
-    """日志工具类，用于创建和配置日志记录器"""
+    """ 日志工具类，用于创建和配置日志记录器 """
     # 日志名称默认包含当前文件名
     _File_Name = os.path.basename(__file__).split(".")[0]
 
     # 日志格式默认
-    # _Default_Format = '%(asctime)s [%(levelname)s] %(message)s'
-
     _Default_Format = '%(asctime)s [%(levelname)s] %(name)s:%(lineno)d - %(message)s'
 
     # 定义日志级别的映射
@@ -24,11 +22,11 @@ class LogUtil:
     }
 
     def __init__(self, logger):
-        """最小化初始化，仅存储logger实例"""
+        """ 最小化初始化，仅存储logger实例 """
         self.logger = logger
 
     def _create_handler(handler_class, level, formatter, **kwargs):
-        """创建处理器"""
+        """ 创建处理器 """
         handler = handler_class(**kwargs)
         handler.setLevel(level)
         handler.setFormatter(formatter)
@@ -36,7 +34,7 @@ class LogUtil:
         return handler
     
     def _log_path(log_name = _File_Name):
-        """生成日志文件路径"""
+        """ 生成日志文件路径 """
         config = ConfigYaml()
         logs_dir = Conf.get_log_path()
         cur_date = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -51,7 +49,7 @@ class LogUtil:
 
     @classmethod
     def _create_logger(cls, log_name, log_level):
-        """核心方法：创建并配置logger实例"""
+        """ 核心方法：创建并配置logger实例 """
         # 获取logger实例
         logger = logging.getLogger(log_name)
         logger.setLevel(cls._Log_Level_Map[log_level])
@@ -82,7 +80,7 @@ class LogUtil:
     
     @classmethod
     def sys_log(cls, log_name = _File_Name):
-        """主入口：获取日志工具实例"""
+        """ 主入口：获取日志工具实例 """
 
         # 获取配置
         config = ConfigYaml()
@@ -94,7 +92,7 @@ class LogUtil:
         return cls(logger)
     
     def __getattr__(self, name):
-        """委托logger的方法调用"""
+        """ 委托logger的方法调用 """
         return getattr(self.logger, name)
 
     

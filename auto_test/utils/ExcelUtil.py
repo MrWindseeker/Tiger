@@ -1,11 +1,11 @@
-# 目的：参数化，pytest list
 import os, xlrd2, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import Conf
 
 class ExcelUtil:
-# 验证文件是否存在，存在读取，不存在报错
+    """ Excel工具类 """
     def __init__(self, excel_name, sheet_by):
+        """ 初始化Excel工具类 """
         excel_file = Conf.get_data_path() + os.sep + excel_name
         if os.path.exists(excel_file):
             self.excel_file = excel_file
@@ -15,8 +15,8 @@ class ExcelUtil:
         self._data_list = []
 
 
-# 读取sheet方式，名称、索引
     def data_list(self):
+        """ 读取Excel数据 """
         # data数据存在则不读取
         if not self._data_list:
             workbook = xlrd2.open_workbook(self.excel_file)

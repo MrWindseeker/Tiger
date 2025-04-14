@@ -3,11 +3,12 @@ import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.LogUtil import LogUtil
 
-# 创建封装类
+
 class MysqlUtil:
-    # 初始化数据,连接数据库
-    # 注意：charset='utf8' 不能写成utf-8
+    """ Mysql数据库工具类 """
+
     def __init__(self, host, user, passwd, database, port = 3306, charset = 'utf8' ):
+        """ 初始化Mysql数据库连接 """
         self.log = LogUtil.sys_log('mysql_log')
 
         self.conn = pymysql.connect(
@@ -26,16 +27,19 @@ class MysqlUtil:
     # 创建查询,执行方法
     # 单个查询
     def fetchone(self, sql):
+        """ 执行单个查询 """
         self.sql_execute(sql)
         return self.cursor.fetchone()
 
     # 多个查询
     def fetchall(self, sql):
+        """ 执行多个查询 """
         self.sql_execute(sql)
         return self.cursor.fetchall()
 
     # 执行sql
     def sql_execute(self, sql):
+        """ 执行sql语句 """
         try:
             if self.conn and self.cursor:
                 self.cursor.execute(sql)
@@ -49,6 +53,7 @@ class MysqlUtil:
 
 # 关闭对象
     def __del__(self):
+        """ 关闭对象 """
         # 关闭光标对象
         if self.cursor:
             # print('关闭光标')
