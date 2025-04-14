@@ -1,6 +1,6 @@
 import sys, os, json
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 from utils.ReqsUtil import ReqsUtil
 from config.Tiger_Conf import Tiger_ConfigYaml
 
@@ -13,7 +13,7 @@ req = ReqsUtil()
 
 class opportunity_sys:
     def __init__(self):
-        self.log = sys_log('opportunity')
+        self.log = LogUtil.sys_log('opportunity')
 
     # 商机列表接口
     def get_opp_list(self, acs_tk, json):

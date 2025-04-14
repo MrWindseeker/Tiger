@@ -2,7 +2,7 @@ import sys, os, json, re, subprocess, shutil, datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import Conf
 from common import Base
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 from utils.MysqlUtil import MysqlUtil
 from utils.AssertUtil import AssertUtil
 from utils.EmailUtil import EmailUtil

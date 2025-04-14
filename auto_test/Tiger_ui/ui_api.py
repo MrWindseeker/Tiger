@@ -5,12 +5,12 @@ from selenium.webdriver.support import expected_conditions as EC
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Tiger_api.admin_sys import admin_sys
 from Tiger_api.timesheet_sys import timesheet_sys
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 
 
 test_tim = timesheet_sys()
 test_admin = admin_sys()
-log = sys_log('ui_api_log')
+log = LogUtil.sys_log('ui_api_log')
 
 def add_check_eng(asc_tk, eng_type):
     json_ts_eng = {'engagementType': '{}'.format(eng_type), 'businessUnit': '', 'role': '', 'managerialCntryOrLoc': '', 'engagementCode': None, 'engagementName': None, 'clientCode': None, 'clientName': None, 'employeeName': None, 'employeeGPN': None, 'managementUnit': '', 'subManagementUnit': '', 'pageNo': 1, 'pageSize': 10}

@@ -1,12 +1,12 @@
 # 公共方法封装
 import requests, sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 
 
 class ReqsUtil:
     def __init__(self):
-        self.log = sys_log('ReqsUtil')
+        self.log = LogUtil.sys_log('ReqsUtil')
 
     # 1、定义公共方法
     def req_api(self, url, method = 'get', data = None, json = None, headers = None, cookies = None, img = None):

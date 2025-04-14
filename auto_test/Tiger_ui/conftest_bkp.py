@@ -3,14 +3,14 @@ import os, sys, pytest, time
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from py.xml import html
 from selenium import webdriver
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 
 
 # 初始化日志
 @pytest.fixture(scope='session', autouse=True)
 def get_log():
     global log
-    log = sys_log('ui_test')
+    log = LogUtil.sys_log('ui_test')
     return log
 
 

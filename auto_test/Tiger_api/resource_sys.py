@@ -1,6 +1,6 @@
 import sys, os, json
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 from utils.ReqsUtil import ReqsUtil
 from config.Tiger_Conf import Tiger_ConfigYaml
 
@@ -18,7 +18,7 @@ req = ReqsUtil()
 
 class resource_sys:
     def __init__(self):
-        self.log = sys_log('resource')
+        self.log = LogUtil.sys_log('resource')
 
     # 获取资源列表接口
     def get_res_list(self, acs_tk, json):

@@ -4,7 +4,7 @@ from common import Base, BasicSev, ExcelConf, ExcelData
 from config import Conf
 from utils.ReqsUtil import ReqsUtil
 from utils.AssertUtil import AssertUtil
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 from config.Tiger_Conf import Tiger_ConfigYaml
 
 # allure测试报告路径
@@ -28,7 +28,7 @@ assert_data = AssertUtil()
 preuat_url = Tiger_ConfigYaml().get_preuat_url()
 
 # 初始化日志
-case_log = sys_log('run_case')
+case_log = LogUtil.sys_log('run_case')
 
 
 class TestCase:

@@ -1,6 +1,6 @@
 import sys, os, json
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 from utils.ReqsUtil import ReqsUtil
 from config.Tiger_Conf import Tiger_ConfigYaml
 
@@ -12,7 +12,7 @@ req = ReqsUtil()
 
 class admin_sys:
     def __init__(self):
-        self.log = sys_log('admin')
+        self.log = LogUtil.sys_log('admin')
 
     # 登录系统
     def login(self, json):

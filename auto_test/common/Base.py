@@ -1,6 +1,6 @@
 import sys, os, json, re, subprocess, datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 from config.Conf import ConfigYaml
 from utils.MysqlUtil import MysqlUtil
 from utils.AssertUtil import AssertUtil
