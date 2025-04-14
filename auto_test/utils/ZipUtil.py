@@ -1,5 +1,5 @@
 import os, datetime, shutil
-from utils.LogUtil import sys_log
+from utils.LogUtil import LogUtil
 
 
 # 当前时间
@@ -7,7 +7,7 @@ cur_time = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
 class ZipUtil:
     def __init__(self):
-        self.log = sys_log('ZipUtil')
+        self.log = LogUtil.sys_log('ZipUtil')
 
     def zip_files(self, output_path, output_name, file_path = None, folder_path = None):
         if not file_path and not folder_path:
