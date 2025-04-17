@@ -1,4 +1,4 @@
-import logging, datetime, os, sys
+import logging, datetime, os, sys, inspect
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import Conf
 from config.Conf import ConfigYaml
@@ -8,7 +8,8 @@ from config.Conf import ConfigYaml
 class LogUtil:
     """ 日志工具类，用于创建和配置日志记录器 """
     # 日志名称默认包含当前文件名
-    _File_Name = os.path.basename(__file__).split(".")[0]
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    _File_Name = os.path.splitext(os.path.relpath(inspect.stack()[-1].filename, project_root))[0].replace(os.sep, '_')
 
     # 日志格式默认
     _Default_Format = '%(asctime)s [%(levelname)s] %(name)s:%(lineno)d - %(message)s'

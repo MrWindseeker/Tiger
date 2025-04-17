@@ -50,7 +50,7 @@ def assert_db(db_name, result, db_verify):
     """ 数据库验证 """
     # 数据库验证
     mysql = init_mysql(db_name)
-    res_sql = mysql.fetchone(db_verify)
+    res_sql = mysql.query_one(db_verify)
     db_verify_list = list(res_sql.keys())
     for line in db_verify_list:
         test_res_line = result[line]

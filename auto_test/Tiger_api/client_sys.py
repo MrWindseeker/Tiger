@@ -12,7 +12,7 @@ req = ReqsUtil()
 
 class client_sys:
     def __init__(self):
-        self.log = LogUtil.sys_log('client')
+        self.log = LogUtil.sys_log()
 
     # 客户列表查询接口
     def get_cli_list(self, acs_tk, json):

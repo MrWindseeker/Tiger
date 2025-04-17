@@ -18,7 +18,7 @@ req = ReqsUtil()
 
 class timesheet_sys:
     def __init__(self):
-        self.log = LogUtil.sys_log('timesheet')
+        self.log = LogUtil.sys_log()
 
     # 首页home/info接口
     def get_ts_home(self, acs_tk, data):

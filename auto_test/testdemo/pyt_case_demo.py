@@ -28,7 +28,7 @@ assert_data = AssertUtil()
 preuat_url = Tiger_ConfigYaml().get_preuat_url()
 
 # 初始化日志
-case_log = LogUtil.sys_log('run_case')
+case_log = LogUtil.sys_log()
 
 
 class TestCase:

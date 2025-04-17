@@ -148,8 +148,8 @@ if __name__ == '__main__':
     # print(conf_read.get_db_conf_info('db1'))
     # print(type(conf_read.get_db_conf_info('db1')))
     # print(conf_read.get_excel_file())
-    print(conf_read.get_test_data())
-    print(conf_read.get_data_sheet())
+    # print(conf_read.get_test_data())
+    # print(conf_read.get_data_sheet())
     # email_info = conf_read.get_email_info()
     # print(email_info)
     # to_recv = conf_read.get_email_info()['to_recv']
@@ -158,3 +158,6 @@ if __name__ == '__main__':
     # # print(cc_receiver)
     # if not cc_recv:
     #     print('OK')
+    db_local_info = conf_read.get_db_conf_info('msdb2')
+
+    print(db_local_info)

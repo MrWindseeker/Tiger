@@ -10,7 +10,7 @@ from utils.LogUtil import LogUtil
 @pytest.fixture(scope='session', autouse=True)
 def get_log():
     global log
-    log = LogUtil.sys_log('ui_test')
+    log = LogUtil.sys_log()
     return log
 
 

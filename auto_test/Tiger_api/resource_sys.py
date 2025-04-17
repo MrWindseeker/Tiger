@@ -18,7 +18,7 @@ req = ReqsUtil()
 
 class resource_sys:
     def __init__(self):
-        self.log = LogUtil.sys_log('resource')
+        self.log = LogUtil.sys_log()
 
     # 获取资源列表接口
     def get_res_list(self, acs_tk, json):

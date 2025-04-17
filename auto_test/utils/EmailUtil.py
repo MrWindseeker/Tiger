@@ -28,7 +28,7 @@ aud_type_list = ['.mp3', '.mp4']
 class EmailUtil:
     """邮件发送工具类"""
     def __init__(self, email_host, sender, auth_code, to_recv, cc_recv, subject, text_cont = None, attach_file = None, html_cont = None, html_img = None):
-        self.log = LogUtil.sys_log('email_log')
+        self.log = LogUtil.sys_log()
 
         # 设置邮箱服务器地址
         self.email_host = email_host

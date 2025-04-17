@@ -13,7 +13,7 @@ req = ReqsUtil()
 
 class opportunity_sys:
     def __init__(self):
-        self.log = LogUtil.sys_log('opportunity')
+        self.log = LogUtil.sys_log()
 
     # 商机列表接口
     def get_opp_list(self, acs_tk, json):

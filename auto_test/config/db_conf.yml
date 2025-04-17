@@ -1,8 +1,8 @@
 # 编写相关信息
-msdb1:
+mysql-local:
   db_host: 'localhost'
   db_user: 'root'
-  db_passwd: '123456'
+  db_passwd: '00000000'
   db_database: 'test'
   db_port: 3306
   db_charset: 'utf8'

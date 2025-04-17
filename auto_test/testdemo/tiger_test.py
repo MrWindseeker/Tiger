@@ -12,7 +12,7 @@ req = ReqsUtil()
 
 class admin_login():
     def __init__(self):
-        self.log = LogUtil.sys_log('admin')
+        self.log = LogUtil.sys_log()
 
     def login(self, username, password):
         login_url = preuat_url + login

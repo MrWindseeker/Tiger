@@ -9,7 +9,7 @@ class ZipUtil:
     """ 封装压缩工具类 """
     def __init__(self):
         """ 初始化ZipUtil类 """
-        self.log = LogUtil.sys_log('ZipUtil')
+        self.log = LogUtil.sys_log()
 
     def zip_files(self, output_path, output_name, file_path = None, folder_path = None):
         """ 压缩文件或文件夹 """

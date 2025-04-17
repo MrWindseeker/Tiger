@@ -12,7 +12,7 @@ req = ReqsUtil()
 
 class admin_sys:
     def __init__(self):
-        self.log = LogUtil.sys_log('admin')
+        self.log = LogUtil.sys_log()
 
     # 登录系统
     def login(self, json):

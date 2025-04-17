@@ -10,7 +10,7 @@ from utils.LogUtil import LogUtil
 
 test_tim = timesheet_sys()
 test_admin = admin_sys()
-log = LogUtil.sys_log('ui_api_log')
+log = LogUtil.sys_log()
 
 def add_check_eng(asc_tk, eng_type):
     json_ts_eng = {'engagementType': '{}'.format(eng_type), 'businessUnit': '', 'role': '', 'managerialCntryOrLoc': '', 'engagementCode': None, 'engagementName': None, 'clientCode': None, 'clientName': None, 'employeeName': None, 'employeeGPN': None, 'managementUnit': '', 'subManagementUnit': '', 'pageNo': 1, 'pageSize': 10}

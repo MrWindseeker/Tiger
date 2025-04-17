@@ -6,7 +6,7 @@ from utils.LogUtil import LogUtil
 class AssertUtil:
     """ 封装断言工具类 """
     def __init__(self):
-        self.log = LogUtil.sys_log('AssertUtil')
+        self.log = LogUtil.sys_log()
 
     def assert_code(self, code, expected_code):
         """ 验证返回状态码 """

@@ -12,7 +12,7 @@ req = ReqsUtil()
 
 class engagement_sys:
     def __init__(self):
-        self.log = LogUtil.sys_log('engagement')
+        self.log = LogUtil.sys_log()
 
     # 项目列表接口
     def get_eng_list(self, acs_tk, json):
