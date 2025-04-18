@@ -1,27 +1,44 @@
-import os, configparser
+import os
+import configparser
 
 
 class ConfUtil:
-    """ 配置文件工具类 """
-    def __init__(self, conf):
-        if os.path.exists(conf):
-            self.conf = conf
-        else:
-            raise FileNotFoundError('文件不存在')
+    """ 配置文件工具类，支持读取配置并获取特定值 """
+    def __init__(self, conf_path: str):
+        if not os.path.isfile(conf_path):
+            raise FileNotFoundError('配置文件不存在: {}'.format(conf_path))
+        self.conf_path = conf_path
+        self._config = None
 
-    def read_conf(self):
-        conf_data = configparser.ConfigParser()
-        conf_data.read(self.conf, encoding='utf8')
-        return conf_data
-    
-    def get_data(self, section, key):
-        return self.read_conf().get(section, key)
-    
+    def _load_config(self):
+        if self._config is None:
+            self._config = configparser.ConfigParser()
+            self._config.read(self.conf_path, encoding='utf-8')
+
+    def get_data(self, section: str, key: str) -> str:
+        self._load_config()
+        try:
+            return self._config.get(section, key)
+        except (configparser.NoSectionError, configparser.NoOptionError) as e:
+            raise KeyError('读取配置出错: {}'.format(e))
+
+    def get_section(self, section: str) -> dict:
+        self._load_config()
+        if section not in self._config:
+            raise KeyError('配置中不存在 section: {}'.format(section))
+        return dict(self._config[section])
+
+
 if __name__ == '__main__':
-    conf_path = 'D:\\Python\\Tiger\\auto_test\\config\\tim_elem.conf'
+    import sys
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+    from config import Tiger_Conf
+
+    conf_path = Tiger_Conf.get_tim_elem_file()
     test_conf = ConfUtil(conf_path)
-    # print(test_conf.read_conf().get('test_case', 'case_id'))
-    # test_data = test_conf.read_conf()
-    # test_data = test_data['test_case']['case_id']
-    test_data = test_conf.get_data('Look_Up', 'Time_Type_input')
-    print(test_data)
+    try:
+        test_data = test_conf.get_data('Look_Up', 'Time_Type_input')
+        print(f"Time_Type_input: {test_data}")
+    except KeyError as e:
+        print(e)

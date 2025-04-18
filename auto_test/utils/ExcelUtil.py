@@ -43,7 +43,7 @@ class ExcelUtil:
 if __name__ == '__main__':
     # excel_file = Conf.get_data_path() + os.sep + 'test_data.xlsx'
     # print(excel_file)
-    data_excel = ExcelUtil('test_data.xlsx', '接口测试用例_1')
+    data_excel = ExcelUtil('test_data.xlsx', '测试用户_1')
     data_list = data_excel.data_list()
     # print(data_list)
 

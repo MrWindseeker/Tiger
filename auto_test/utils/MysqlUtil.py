@@ -122,6 +122,8 @@ if __name__ == '__main__':
     charset = db_local_info['db_charset']
     # 创建MysqlUtil对象
     with MysqlUtil(host, user, passwd, database, port, charset) as mysql_util:
-        sql = 'select * from sys_users where user_id = %s'
-        res = mysql_util.query_batch(sql, (1,))
-        mysql_util.log.info(res)
+        current_max_code = 'select * from dealer_master order by dealer_code desc limit 1'
+        # sql = 'select * from china_region limit 10'
+        res = mysql_util.query_one(current_max_code)
+        to_be_max_code = res['dealer_code']
+        mysql_util.log.info(to_be_max_code)
