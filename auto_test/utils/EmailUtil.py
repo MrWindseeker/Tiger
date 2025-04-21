@@ -159,7 +159,7 @@ class EmailUtil:
         """ 发送邮件 """
         try:
             # 连接邮件服务器 SMTP_PORT = 25
-            server = smtplib.SMTP(self.email_host, smtplib.SMTP_PORT)
+            server = smtplib.SMTP_SSL(self.email_host, smtplib.SMTP_SSL_PORT)
             self.log.info('成功连接到邮件服务器')
             # 用set_debuglevel(1)就可以打印出和SMTP服务器交互的所有信息 
             # server.set_debuglevel(1) 

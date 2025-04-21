@@ -112,9 +112,9 @@ def send_email(subject, text_cont = None, attach_file = None, html_cont = None, 
             else:
                 raise Exception('未找到附件信息，请检查.')
 
-        # 设置邮件信息
-        email.set_email()
-        email.send_email()
+    # 设置邮件信息
+    email.set_email()
+    email.send_email()
 
 
 if __name__ == '__main__':
@@ -129,7 +129,9 @@ if __name__ == '__main__':
     <p>------------------------------------------------</p>
     <p><img src = 'cid:image_1'></p>
     '''
-    html_img = ['D:/Windseeker/Desktop/test/QQPhoto20210803172728.jpg', 'D:/Windseeker/Desktop/test/shanghai.png']
-    attach_files = ['D:/Windseeker/Desktop/test/dolanaar.txt','D:/Windseeker/Desktop/test/test.html','D:/Windseeker/Desktop/test/niefeng.png','D:/Windseeker/Desktop/test/WeChat_20230212194705.mp4',Base.find_latest_file(allure_output)]
+    html_img = ['/Users/windseeker/Desktop/文件/JH.jpg', '/Users/windseeker/Desktop/文件/SH.png']
+    # attach_files = ['D:/Windseeker/Desktop/test/dolanaar.txt','D:/Windseeker/Desktop/test/test.html','D:/Windseeker/Desktop/test/niefeng.png','D:/Windseeker/Desktop/test/WeChat_20230212194705.mp4',Base.find_latest_file(allure_output)]
+    attach_files = ['/Users/windseeker/Desktop/文件/Windseeker.txt','/Users/windseeker/Desktop/文件/test.html','/Users/windseeker/Desktop/文件/niefeng.png','/Users/windseeker/Desktop/文件/WeChat_20230212194705.mp4']
 
     send_email(subject, html_cont = html_cont, html_img = html_img, attach_file = attach_files)
+    # send_email(subject, html_cont = html_cont, html_img = html_img)
