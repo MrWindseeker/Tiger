@@ -27,19 +27,20 @@ aud_type_list = ['.mp3', '.mp4']
 
 class EmailUtil:
     """邮件发送工具类"""
-    def __init__(self, email_host, sender, auth_code, to_recv, cc_recv, subject, text_cont = None, attach_file = None, html_cont = None, html_img = None):
+    # def __init__(self, email_host, sender, auth_code, to_recv, cc_recv, subject = None, text_cont = None, html_cont = None, html_img = None, attach_file = None):
+    def __init__(self, email_info, subject = None, text_cont = None, html_cont = None, html_img = None, attach_file = None):
         self.log = LogUtil.sys_log()
 
         # 设置邮箱服务器地址
-        self.email_host = email_host
+        self.email_host = email_info['email_host']
         # 设置发件人邮箱地址
-        self.sender = sender
+        self.sender = email_info['sender']
         # 设置发件人邮箱授权码或密码
-        self.auth_code = auth_code
+        self.auth_code = email_info['auth_code']
         # 设置收件人邮箱地址
-        self.to_recv = to_recv
+        self.to_recv = email_info['to_recv']
         # 设置抄送人邮箱地址
-        self.cc_recv = cc_recv
+        self.cc_recv = email_info['cc_recv']
         # 设置邮件主题
         self.subject = subject
         # 设置text正文
@@ -155,7 +156,7 @@ class EmailUtil:
 
     # 增加调试信息
     @pysnooper.snoop()
-    def send_email(self):
+    def __send_email(self):
         """ 发送邮件 """
         try:
             # 连接邮件服务器 SMTP_PORT = 25
@@ -167,7 +168,7 @@ class EmailUtil:
             server.login(self.set_send(self.sender), self.auth_code)
             self.log.info('成功登录邮箱')
             self.log.info('发件人：[{}]'.format(self.sender))
-
+ 
             if not self.cc_recv:
                 server.sendmail(self.sender, self.to_recv, self.message.as_string())
                 self.log.info('收件人：{}'.format(self.to_recv))
@@ -183,31 +184,61 @@ class EmailUtil:
         finally:
             server.quit()
 
+    def from_conf_and_send(self, subject = None, text_cont = None, html_cont = None, html_img = None, attach_file = None):
+        """ 通过配置构建并发送邮件 """
+        self.subject = subject
+        self.text_cont = text_cont
+        self.html_cont = html_cont
+        self.html_img = html_img
+        self.attach_file = attach_file
+
+        # 添加正文内容
+        if html_cont:
+            self.add_html_cont()
+        elif text_cont:
+            self.add_text_cont()
+        else:
+            self.message = MIMEMultipart()
+
+        # 添加附件内容
+        if attach_file:
+            for file_path in attach_file:
+                ext = Base.path_to_filetype(file_path)
+                if ext == '.txt':
+                    self.add_text_attach(file_path)
+                elif ext == '.html':
+                    self.add_html_attach(file_path)
+                elif ext in img_type_list:
+                    self.add_img_attach(file_path)
+                elif ext in aud_type_list:
+                    self.add_aud_attach(file_path)
+                elif ext in ['.zip', '.rar']:
+                    self.add_zip_attach(file_path)
+                else:
+                    raise Exception('未找到附件信息，请检查.')
+
+        self.set_email()
+        self.__send_email()
+
 if __name__ == '__main__':
     # email_host, sender, auth_code, to_recv, subject, text_cont, file, cc_recv = None
     email_info = conf_read.get_email_info()
-    # print(email_info)
-    email_host = email_info['email_host']
-    sender = email_info['sender']
-    auth_code = email_info['auth_code']
-    to_recv = email_info['to_recv']
-    cc_recv = email_info['cc_recv']
+
     subject = 'email_test'
     text_cont = 'hello everyone'
     html_cont = '''
-    <p>百度官网地址：</p>
-    <p><a href = 'https://www.baidu.com/'>点击进入</a></p>
+    <p>大连森林动物园官网地址：</p>
+    <p><a href = 'https://www.dlzoo.com/'>点击进入</a></p>
     <p>Jinhu's Photo</p>
     <p>------------------------------------------------</p>
     <p><img src = 'cid:image_0'></p>
     <p>------------------------------------------------</p>
     <p><img src = 'cid:image_1'></p>
     '''
-    html_img = []
-    attach_files = []
+    html_img = ['/Users/windseeker/Desktop/文件/JH.jpg', '/Users/windseeker/Desktop/文件/SH.png']
+    attach_files = ['/Users/windseeker/Desktop/文件/Windseeker.txt','/Users/windseeker/Desktop/文件/test.html','/Users/windseeker/Desktop/文件/niefeng.png','/Users/windseeker/Desktop/文件/WeChat_20230212194705.mp4']
     # email = EmailUtil(email_host, sender, auth_code, to_recv, cc_recv, subject, text_cont = text_cont)
     # email = EmailUtil(email_host, sender, auth_code, to_recv, cc_recv, subject, html_cont = html_cont, html_img = html_img)
-    email = EmailUtil(email_host, sender, auth_code, to_recv, cc_recv, subject, html_cont = html_cont, attach_file = attach_files, html_img = html_img)
 
-    email.send_email()
-
+    email = EmailUtil(email_info)
+    email.from_conf_and_send(subject=subject, text_cont=text_cont, html_cont=html_cont, html_img=html_img, attach_file=attach_files)
