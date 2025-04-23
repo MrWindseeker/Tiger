@@ -14,16 +14,17 @@ from common import Base
 from utils.LogUtil import LogUtil
 
 
-# html背景图片定位正则
-pattern_img = re.compile("'cid:(.*?)'")
-# 图片格式
-img_type_list = ['.jpg', '.jpeg', '.png', '.bmp']
-# 音频视频格式
-aud_type_list = ['.mp3', '.mp4']
-
-
 class EmailUtil:
     """邮件发送工具类"""
+    # html背景图片定位正则
+    pattern_img = re.compile("'cid:(.*?)'")
+    # 图片格式
+    img_type_list = ['.jpg', '.jpeg', '.png', '.bmp']
+    # 音频视频格式
+    aud_type_list = ['.mp3', '.mp4']
+    # 压缩文件格式
+    zip_type_list = ['.zip', '.rar']
+
     # def __init__(self, email_host, sender, auth_code, to_recv, cc_recv, subject = None, text_cont = None, html_cont = None, html_img = None, attach_file = None):
     def __init__(self, email_info, subject = None, text_cont = None, html_cont = None, html_img = None, attach_file = None):
         self.log = LogUtil.sys_log()
@@ -86,7 +87,7 @@ class EmailUtil:
         html_cont = MIMEText(self.html_cont, 'html', 'utf-8')
         self.message.attach(html_cont)
 
-        cid_list = pattern_img.findall(self.html_cont)
+        cid_list = self.pattern_img.findall(self.html_cont)
         if len(cid_list) > 0:
             if len(cid_list) == len(self.html_img):
                 # 添加html背景图片
@@ -205,11 +206,11 @@ class EmailUtil:
                     self.add_text_attach(file_path)
                 elif ext == '.html':
                     self.add_html_attach(file_path)
-                elif ext in img_type_list:
+                elif ext in self.img_type_list:
                     self.add_img_attach(file_path)
-                elif ext in aud_type_list:
+                elif ext in self.aud_type_list:
                     self.add_aud_attach(file_path)
-                elif ext in ['.zip', '.rar']:
+                elif ext in self.zip_type_list:
                     self.add_zip_attach(file_path)
                 else:
                     raise Exception('未找到附件信息，请检查.')
