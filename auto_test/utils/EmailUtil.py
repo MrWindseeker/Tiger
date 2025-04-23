@@ -1,4 +1,4 @@
-import smtplib, re, sys, pysnooper
+import smtplib, re, os, sys, pysnooper
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
 from email.mime.audio import MIMEAudio
@@ -9,16 +9,13 @@ from email.header import Header
 from email.utils import parseaddr, formataddr
 from email import encoders
 
-import sys, os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from common import Base
 from utils.LogUtil import LogUtil
-from config.Conf import ConfigYaml
 
-# 初始化配置文件
-conf_read = ConfigYaml()
+
 # html背景图片定位正则
-pattern_img = re.compile("'cid:(.*)'")
+pattern_img = re.compile("'cid:(.*?)'")
 # 图片格式
 img_type_list = ['.jpg', '.jpeg', '.png', '.bmp']
 # 音频视频格式
@@ -156,7 +153,7 @@ class EmailUtil:
 
     # 增加调试信息
     @pysnooper.snoop()
-    def __send_email(self):
+    def _send_smtp_email(self):
         """ 发送邮件 """
         try:
             # 连接邮件服务器 SMTP_PORT = 25
@@ -184,7 +181,7 @@ class EmailUtil:
         finally:
             server.quit()
 
-    def from_conf_and_send(self, subject = None, text_cont = None, html_cont = None, html_img = None, attach_file = None):
+    def send_email(self, subject = None, text_cont = None, html_cont = None, html_img = None, attach_file = None):
         """ 通过配置构建并发送邮件 """
         self.subject = subject
         self.text_cont = text_cont
@@ -218,9 +215,14 @@ class EmailUtil:
                     raise Exception('未找到附件信息，请检查.')
 
         self.set_email()
-        self.__send_email()
+        self._send_smtp_email()
+
 
 if __name__ == '__main__':
+    from config.Conf import ConfigYaml
+
+    # 初始化配置文件
+    conf_read = ConfigYaml()
     # email_host, sender, auth_code, to_recv, subject, text_cont, file, cc_recv = None
     email_info = conf_read.get_email_info()
 
@@ -241,4 +243,4 @@ if __name__ == '__main__':
     # email = EmailUtil(email_host, sender, auth_code, to_recv, cc_recv, subject, html_cont = html_cont, html_img = html_img)
 
     email = EmailUtil(email_info)
-    email.from_conf_and_send(subject=subject, text_cont=text_cont, html_cont=html_cont, html_img=html_img, attach_file=attach_files)
+    email.send_email(subject = subject, text_cont = text_cont, html_cont = html_cont, html_img = html_img, attach_file = attach_files)
