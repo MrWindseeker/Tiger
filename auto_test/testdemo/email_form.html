@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>发送邮件</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+    }
+    input, textarea, button {
+      display: block;
+      width: 100%;
+      padding: 8px;
+      margin-top: 10px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h2>发送邮件</h2>
+    <form @submit.prevent="sendEmail">
+      <label>主题</label>
+      <input v-model="subject" required>
+
+      <label>正文</label>
+      <textarea v-model="body" rows="8" required></textarea>
+
+      <div v-if="errorMessage" style="color: red; margin-top: 10px;">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" :disabled="isSending">
+        {{ isSending ? "发送中..." : "发送" }}
+      </button>
+    </form>
+  </div>
+
+  <script>
+    const { createApp, ref } = Vue
+    createApp({
+      setup() {
+        const subject = ref('')
+        const body = ref('')
+        const isSending = ref(false)
+        const errorMessage = ref('')
+
+        const sendEmail = async () => {
+          isSending.value = true
+          errorMessage.value = ''
+          try {
+            const payload = {
+              subject: subject.value,
+              text_cont: body.value
+            }
+            const response = await fetch('/send_email', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            })
+            const result = await response.json()
+            if (response.ok) {
+              alert(result.message || '发送成功')
+              subject.value = ''
+              body.value = ''
+            } else {
+              errorMessage.value = result.error || '发送失败'
+            }
+          } catch (e) {
+            errorMessage.value = '发送时发生错误'
+          } finally {
+            isSending.value = false
+          }
+        }
+
+        return { subject, body, sendEmail, isSending, errorMessage }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
